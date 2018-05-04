@@ -117,7 +117,7 @@ public class CustomerFormController implements Initializable {
      * @param event
      */
     @FXML
-    public void SaveUser(ActionEvent event) {
+    public void SaveCustomer(ActionEvent event) {
         final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
        
          
@@ -127,20 +127,20 @@ public class CustomerFormController implements Initializable {
             Address custAddress = null;
             if (this.customerId != null) {
                 customer = customerDAO.getCustomerById(customerId);
-
-                custAddress = (Address) session.createQuery(
-                        "from Address WHERE addressId=:addressId")
-                        .setParameter("addressId", customer.getAddressId())
-                        .getSingleResult();
-
-                
-                custCity = (City) session.createQuery("from City WHERE cityId=:cityId")
-                        .setParameter("cityId", custAddress.getCityId())
-                        .getSingleResult();
-                custCountry = (Country) session.createQuery(
-                        "from Country WHERE countryId=:countryId")
-                        .setParameter("countryId", custCity.getCountryId())
-                        .getSingleResult();
+//
+//                custAddress = (Address) session.createQuery(
+//                        "from Address WHERE addressId=:addressId")
+//                        .setParameter("addressId", customer.getAddressId())
+//                        .getSingleResult();
+//
+//                
+//                custCity = (City) session.createQuery("from City WHERE cityId=:cityId")
+//                        .setParameter("cityId", custAddress.getCityId())
+//                        .getSingleResult();
+//                custCountry = (Country) session.createQuery(
+//                        "from Country WHERE countryId=:countryId")
+//                        .setParameter("countryId", custCity.getCountryId())
+//                        .getSingleResult();
             } else {
                 custCountry = new Country();
                 custCity = new City();
@@ -148,6 +148,7 @@ public class CustomerFormController implements Initializable {
                 customer = new Customer();
             }
             //  Country custCountry = new Country();
+            customer.getAddress().getCity().getCountry().s
             custCountry.setCountry(country.getText());
             custCountry.setCreateDate(new Date());
             custCountry.setCreatedBy(currentUserId);

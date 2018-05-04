@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="appointmentForm" prefHeight="492.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.scheduler.controllers.AppointmentFormController">
+<AnchorPane id="AnchorPane" fx:id="appointmentForm" prefHeight="492.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.controllers.AppointmentFormController">
     <children>
         <DatePicker fx:id="appointmentDate" layoutX="225.0" layoutY="91.0" onAction="#validateDateSelection" promptText="Choose Date" />
         <ComboBox fx:id="appointmentCustomer" layoutX="225.0" layoutY="59.0" onAction="#validateCustomerSelection" prefWidth="150.0" promptText="With who?" />
