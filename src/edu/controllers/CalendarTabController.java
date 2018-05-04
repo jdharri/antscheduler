@@ -117,8 +117,9 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
         System.out.println("query from: " + first + " to: " + last);
         monthList.getItems().removeAll(monthList.getItems());
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfWeek,
-                lastOfWeek);
+        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfWeek.
+                toInstant(),
+                lastOfWeek.toInstant());
 
         appointments.forEach(appt -> monthList.getItems().add(appt));
 
@@ -138,8 +139,9 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
         monthList.getItems().removeAll(monthList.getItems());
 
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfMonth,
-                lastOfMonth);
+        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfMonth.
+                toInstant(),
+                lastOfMonth.toInstant());
 
         appointments.forEach(appt -> monthList.getItems().add(appt));
 
@@ -152,5 +154,4 @@ public class CalendarTabController implements Initializable {
         displayMonthlyAppointments();
     }
 
-    
 }

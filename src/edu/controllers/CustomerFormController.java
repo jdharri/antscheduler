@@ -10,6 +10,8 @@ import edu.model.Customer;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,14 +121,13 @@ public class CustomerFormController implements Initializable {
     @FXML
     public void SaveCustomer(ActionEvent event) {
         final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
-       
-         
-            Customer customer;
-            Country custCountry = null;
-            City custCity = null;
-            Address custAddress = null;
-            if (this.customerId != null) {
-                customer = customerDAO.getCustomerById(customerId);
+
+        Customer customer;
+        Country custCountry = null;
+        City custCity = null;
+        Address custAddress = null;
+        if (this.customerId != null) {
+            customer = customerDAO.getCustomerById(customerId);
 //
 //                custAddress = (Address) session.createQuery(
 //                        "from Address WHERE addressId=:addressId")
@@ -141,56 +142,65 @@ public class CustomerFormController implements Initializable {
 //                        "from Country WHERE countryId=:countryId")
 //                        .setParameter("countryId", custCity.getCountryId())
 //                        .getSingleResult();
-            } else {
-                custCountry = new Country();
-                custCity = new City();
-                custAddress = new Address();
-                customer = new Customer();
-            }
+        } else {
+            custCountry = new Country();
+            custCity = new City();
+            custAddress = new Address();
+            customer = new Customer();
+        }
+        try {
             //  Country custCountry = new Country();
-            customer.getAddress().getCity().getCountry().s
+//            Address address = new Address();
+         
             custCountry.setCountry(country.getText());
             custCountry.setCreateDate(new Date());
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(new Date());
             custCountry.setLastUpdateBy(currentUserId);
-            session.save(custCountry);
+           
 
             custCity.setCity(city.getText());
-            custCity.setCountryId(custCountry.getCountryId());
+            custCity.setCountry(custCountry);
             custCity.setCreateDate(new Date());
             custCity.setCreatedBy(currentUserId);
             custCity.setLastUpdate(new Date());
             custCity.setLastUpdateBy(currentUserId);
-            session.save(custCity);
-
+          
+//
 //        Address custAddress = new Address();
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
-            custAddress.setCityId(custCity.getCityId());
+            custAddress.setCity(custCity);
             custAddress.setCreateDate(new Date());
             custAddress.setCreatedBy(currentUserId);
             custAddress.setLastUpdateBy(currentUserId);
             custAddress.setLastUpdate(new Date());
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
-
-            session.save(custAddress);
-            System.out.println("***********************************addressId: " + custAddress.
-                    getAddressId());
-
+           
+          
+//
+//            session.save(custAddress);
+//            System.out.println("***********************************addressId: " + custAddress.
+//                    getAddressId());
+//
+//            customer.setCustomerName(customerName.getText());
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(new Date());
             customer.setActive(true);
             customer.setLastUpdate(new Date());
             customer.setCreatedBy(currentUserId);
             customer.setLastUpdateBy(currentUserId);
-            customer.setAddressId(custAddress.getAddressId());
-            session.save(customer);
-          
-            this.cancel.fire();
-            customerListController.refresh();
-     
+            customer.setAddress(custAddress);
+//            customer.setAddressId(custAddress.getAddressId());
+
+            customerDAO.editCustomer(customer);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerFormController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.cancel.fire();
+        customerListController.refresh();
 
     }
 

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.controllers;
 
 import edu.MainApp;
@@ -72,7 +68,7 @@ public class LoginController implements Initializable {
 
     public void Login(ActionEvent event) throws Exception {
 
-        Parent mainViewParent = FXMLLoader.load(getClass().getResource("/fxml/TabPane.fxml"));
+        Parent mainViewParent = FXMLLoader.load(getClass().getResource("TabPane.fxml"));
         Scene mainViewScene = new Scene(mainViewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       

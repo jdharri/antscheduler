@@ -1,9 +1,11 @@
 package edu.controllers;
 
-import com.mycompany.scheduler.MainApp;
-import com.mycompany.scheduler.model.Appointment;
-import com.mycompany.scheduler.model.Customer;
-import com.mycompany.scheduler.model.User;
+import edu.MainApp;
+import edu.dao.AppointmentDAO;
+import edu.dao.CustomerDAO;
+import edu.model.Appointment;
+import edu.model.Customer;
+import edu.model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -36,11 +38,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 
 /**
  * FXML Controller class
@@ -66,7 +64,7 @@ public class AppointmentFormController implements Initializable {
     @FXML
     private TextField appointmentDescription;
     final ObservableList hours = FXCollections.observableArrayList();
-    SessionFactory fac;
+   
     private final User currentUser = MainApp.getCurrentUser();
     Stage stage;
     @FXML
@@ -75,6 +73,8 @@ public class AppointmentFormController implements Initializable {
     private CalendarTabController calendarTabController;
     @FXML
     private AnchorPane calendarTab;
+    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
+    private final CustomerDAO customerDAO = new CustomerDAO();
 
     /**
      * Initializes the controller class.
@@ -88,7 +88,7 @@ public class AppointmentFormController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/CalendarTab.fxml"));
         calendarTabController = loader.getController();
-        this.initializeDBConnection();
+       
         this.populateCustomers();
         hours.addAll(this.getHours());
         appointmentStartTime.getItems().clear();
@@ -184,11 +184,12 @@ public class AppointmentFormController implements Initializable {
                 customer.getCustomerName(), appt.getDescription()));
         appt.setUrl("http://localhost");
         appt.setContact(currentUserId);
-        Session session = getSession();
-        session.beginTransaction();
-        session.save(appt);
-        session.flush();
-        session.close();
+      
+        try {
+            appointmentDAO.addAppointment(appt);
+        } catch (Exception ex) {
+            Logger.getLogger(AppointmentFormController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         calendarTabController.showCalendar();
         this.clearForm();
         calendarTabController.refresh();
@@ -218,25 +219,14 @@ public class AppointmentFormController implements Initializable {
 
     public void populateCustomers() {
 
-        Session session = getSession();
-        session.beginTransaction();
-        List<Customer> customerListResults = session.createQuery("from Customer").list();
+      
+        List<Customer> customerListResults = customerDAO.getAllCustomers();
 
         appointmentCustomer.getItems().addAll(customerListResults);
 
     }
 
-    private void initializeDBConnection() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-        try {
-            fac = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-    }
+ 
 
     @FXML
     public void validateCustomerSelection() {
@@ -262,11 +252,5 @@ public class AppointmentFormController implements Initializable {
         this.calendarTabController = con;
     }
 
-    private Session getSession() {
-        try (Session session = fac.getCurrentSession();) {
-            return session;
-        } catch (Exception e) {
-            return fac.openSession();
-        }
-    }
+  
 }
