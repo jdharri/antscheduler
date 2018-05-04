@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AntSchedulerPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>antscheduler.model.Incrementtypes</class>
+    <class>antscheduler.model.Reminder</class>
+    <class>antscheduler.model.Customer</class>
+    <class>antscheduler.model.Appointment</class>
+    <class>antscheduler.model.City</class>
+    <class>antscheduler.model.User</class>
+    <class>antscheduler.model.Country</class>
+    <class>antscheduler.model.Address</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://52.206.157.109:3306/U03Nt0?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="U03Nt0"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="53688028224"/>
+    </properties>
+  </persistence-unit>
+</persistence>
