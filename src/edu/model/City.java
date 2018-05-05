@@ -36,9 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
         @NamedQuery(name = "City.findByCity", query = "SELECT c FROM City c WHERE c.city = :city")
     ,
-        @NamedQuery(name = "City.findByCountryId", query
-            = "SELECT c FROM City c WHERE c.countryId = :countryId")
-    ,
+//        @NamedQuery(name = "City.findByCountryId", query
+//            = "SELECT c FROM City c WHERE c.countryId = :countryId")
+//    ,
         @NamedQuery(name = "City.findByCreateDate", query
             = "SELECT c FROM City c WHERE c.createDate = :createDate")
     ,

@@ -40,9 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Address.findByAddress2", query
             = "SELECT a FROM Address a WHERE a.address2 = :address2")
     ,
-        @NamedQuery(name = "Address.findByCityId", query
-            = "SELECT a FROM Address a WHERE a.cityId = :cityId")
-    ,
+//        @NamedQuery(name = "Address.findByCityId", query
+//            = "SELECT a FROM Address a WHERE a.cityId = :cityId")
+//    ,
         @NamedQuery(name = "Address.findByPostalCode", query
             = "SELECT a FROM Address a WHERE a.postalCode = :postalCode")
     ,

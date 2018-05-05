@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
 
     public void Login(ActionEvent event) throws Exception {
 
-        Parent mainViewParent = FXMLLoader.load(getClass().getResource("TabPane.fxml"));
+        Parent mainViewParent = FXMLLoader.load(getClass().getResource("/edu/TabPane.fxml"));
         Scene mainViewScene = new Scene(mainViewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       

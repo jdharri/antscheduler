@@ -37,9 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Customer.findByCustomerName", query
             = "SELECT c FROM Customer c WHERE c.customerName = :customerName")
     ,
-        @NamedQuery(name = "Customer.findByAddressId", query
-            = "SELECT c FROM Customer c WHERE c.addressId = :addressId")
-    ,
+//        @NamedQuery(name = "Customer.findByAddressId", query
+//            = "SELECT c FROM Customer c WHERE c.address.addressId = :addressId")
+//    ,
         @NamedQuery(name = "Customer.findByActive", query
             = "SELECT c FROM Customer c WHERE c.active = :active")
     ,

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  * Converts the Instant dateTime to a timestamp for persistence and converts from the timestamp back
@@ -13,6 +14,7 @@ import javax.persistence.AttributeConverter;
  *
  * @author Joel Harris 
  */
+@Converter
 public class InstantAttributeConverter implements AttributeConverter<Instant, Timestamp> {
 
     /**
