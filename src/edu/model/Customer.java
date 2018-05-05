@@ -8,9 +8,11 @@ package edu.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -64,9 +66,13 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "customerName")
     private String customerName;
-    @Basic(optional = false)
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "addressId")
+//    @Basic(optional = false)
+    //@OneToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "address_addressId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressId",referencedColumnName = "addressId", unique = true, nullable = true, insertable = true,
+            updatable = true)
+   
     private Address address;
     @Basic(optional = false)
     @Column(name = "active")
@@ -190,9 +196,9 @@ public class Customer implements Serializable {
         return true;
     }
 
-    @Override
+     @Override
     public String toString() {
-        return "antscheduler.model.Customer[ customerId=" + customerId + " ]";
+        return this.customerName;
     }
 
 }

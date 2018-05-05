@@ -86,7 +86,7 @@ public class AppointmentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // stage = (Stage) appointmentDate.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/CalendarTab.fxml"));
+        loader.setLocation(getClass().getResource("/edu/fxml/CalendarTab.fxml"));
         calendarTabController = loader.getController();
        
         this.populateCustomers();
@@ -168,6 +168,7 @@ public class AppointmentFormController implements Initializable {
         System.out.println("Save Appointment");
         Customer customer = appointmentCustomer.getValue();
         Appointment appt = new Appointment();
+        System.out.println("***CUSTOMER ID: "+customer.getCustomerId());
         appt.setCustomerId(customer.getCustomerId());
         appt.setStart(formatDateTime(appointmentDate.getValue(),
                 appointmentStartTime.getValue()));
@@ -180,8 +181,9 @@ public class AppointmentFormController implements Initializable {
 
         appt.setDescription(appointmentDescription.getText());
         appt.setLocation(appointmentLocation.getText());
-        appt.setTitle(String.format("apointment with %s with regard to %s",
-                customer.getCustomerName(), appt.getDescription()));
+        //appt.setTitle(String.format("apointment with %s with regard to %s",
+        //        customer.getCustomerName(), appt.getDescription()));
+        appt.setTitle("blahh title");
         appt.setUrl("http://localhost");
         appt.setContact(currentUserId);
       

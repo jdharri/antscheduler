@@ -8,6 +8,7 @@ package edu.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -73,10 +74,9 @@ public class Address implements Serializable {
     @Basic(optional = false)
     @Column(name = "address2")
     private String address2;
-    @Basic(optional = false)
-    @Column(name = "cityId")
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cityId")
+   @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cityId",referencedColumnName = "cityId", unique = true, nullable = true, insertable = true,
+            updatable = true)
     private City city;
     @Basic(optional = false)
     @Column(name = "postalCode")

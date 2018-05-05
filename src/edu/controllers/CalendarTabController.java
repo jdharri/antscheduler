@@ -66,7 +66,7 @@ public class CalendarTabController implements Initializable {
 //            ToggleGroup weekMonthRadioGroup = new ToggleGroup();
             // weekToggle.setSelected(true);
 //            monthToggle.setToggleGroup(weekMonthRadioGroup);
-            loader = new FXMLLoader(getClass().getResource("/fxml/AppointmentForm.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/edu/fxml/AppointmentForm.fxml"));
             appointmentPane = loader.load();
             appointmentFormController = loader.<AppointmentFormController>getController();
 

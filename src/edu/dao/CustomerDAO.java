@@ -5,9 +5,7 @@
  */
 package edu.dao;
 
-import edu.jpacontrollers.AppointmentJpaController;
 import edu.jpacontrollers.CustomerJpaController;
-import edu.model.Appointment;
 import edu.model.Customer;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;

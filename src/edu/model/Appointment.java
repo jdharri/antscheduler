@@ -7,16 +7,24 @@ package edu.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.TABLE;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -60,11 +68,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
         @NamedQuery(name = "Appointment.findByLastUpdateBy", query
             = "SELECT a FROM Appointment a WHERE a.lastUpdateBy = :lastUpdateBy")})
+//@SequenceGenerator(name = "seq" , initialValue=1, allocationSize=100)
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appointmentId")
     private Integer appointmentId;
     @Basic(optional = false)
@@ -268,7 +278,11 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        return "antscheduler.model.Appointment[ appointmentId=" + appointmentId + " ]";
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                .withZone(ZoneId.systemDefault());
+        return String.
+                format("%s \n  %s - %s \n %s", this.title, formatter.format(start), end,
+                        this.description);
     }
 
 }

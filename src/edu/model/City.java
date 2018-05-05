@@ -8,6 +8,7 @@ package edu.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -60,10 +61,10 @@ public class City implements Serializable {
     @Basic(optional = false)
     @Column(name = "city")
     private String city;
-    @Basic(optional = false)
-    @Column(name = "countryId")
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "countryId")
+   @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "countryId",referencedColumnName = "countryId", unique = true, nullable = true, insertable = true,
+            updatable = true)
+  
     private Country country;
     @Basic(optional = false)
     @Column(name = "createDate")

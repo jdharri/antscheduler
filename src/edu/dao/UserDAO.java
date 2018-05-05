@@ -10,6 +10,7 @@ import edu.model.User;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -47,6 +48,8 @@ public class UserDAO {
     }
 
     public User findByUserName(String userName) {
-        return (User) con.getEntityManager().createNamedQuery("User.findByUserName").getSingleResult();
+        Query q = con.getEntityManager().createNamedQuery("User.findByUserName");
+        q.setParameter("userName", userName);
+        return (User) q.getSingleResult();
     }
 }
