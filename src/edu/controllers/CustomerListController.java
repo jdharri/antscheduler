@@ -1,4 +1,3 @@
-
 package edu.controllers;
 
 import edu.dao.AppointmentDAO;
@@ -7,10 +6,16 @@ import edu.model.Appointment;
 import edu.model.Customer;
 import java.net.URL;
 import java.time.Duration;
+import java.time.Instant;
 
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -80,14 +85,14 @@ public class CustomerListController implements Initializable {
 
     public void queryForAppointments() {
         System.out.println("querying for appointments in the next 15 minutes");
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime fifteenMinutesFromNow = now.plus(Duration.ofMinutes(15));
-        Date start = Date.from(now.toInstant(ZoneOffset.UTC));
-        Date end = Date.from(fifteenMinutesFromNow.toInstant(ZoneOffset.UTC));
-        System.out.println("***********query start: " + start + "  query end: " + end);
+//        LocalDateTime now = LocalDateTime.now();
+//        LocalDateTime fifteenMinutesFromNow = now.plus(Duration.ofMinutes(15));
+//        Date start = Date.from(now.toInstant(ZoneOffset.UTC));
+//        Date end = Date.from(fifteenMinutesFromNow.toInstant(ZoneOffset.UTC));
+        //  System.out.println("***********query start: " + start + "  query end: " + end);
+        Instant now = Instant.now();
 
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(start.
-                toInstant(), end.toInstant());
+        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(now, now.plus(15, ChronoUnit.MINUTES));
         System.out.println(appointments.size() + " appointments found");
         createAppointmentAlerts(appointments);
     }
@@ -95,9 +100,17 @@ public class CustomerListController implements Initializable {
     public void createAppointmentAlerts(final List<Appointment> appointments) {
         System.out.println("creating appointment alerts");
         for (Appointment appt : appointments) {
+            long timeTillMetting = ChronoUnit.MINUTES.between(Instant.now(), appt.getStart());
+            Customer customer = customerDAO.getCustomerById(appt.getCustomerId());
             Alert alert = new Alert(AlertType.INFORMATION, String.format(
-                    "%s You have an appointment with %s at %s", appt.getTitle(), appt.getContact(),
-                    appt.getStart()));
+                    "Customer: %s \nDescription: %s ", customer.getCustomerName(),
+                    appt.getDescription()));
+
+            alert.setTitle("Upcoming appointment starts in " + timeTillMetting + " minutes");
+            String start = LocalDateTime.ofInstant(appt.getStart(), ZoneId.systemDefault()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+            String end = LocalDateTime.ofInstant(appt.getEnd(), ZoneId.systemDefault()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+
+            alert.setHeaderText(String.format("%s %s - %s", appt.getTitle(), start, end));
             alert.show();
         }
     }
@@ -129,6 +142,5 @@ public class CustomerListController implements Initializable {
         customerList.getItems().clear();
         this.populateUserList();
     }
-
 
 }

@@ -36,9 +36,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
 
 /**
  * FXML Controller class
@@ -62,9 +62,11 @@ public class AppointmentFormController implements Initializable {
     @FXML
     private TextField appointmentLocation;
     @FXML
-    private TextField appointmentDescription;
+    private TextArea appointmentDescription;
+    @FXML 
+    private TextField appointmentTitle;
     final ObservableList hours = FXCollections.observableArrayList();
-   
+
     private final User currentUser = MainApp.getCurrentUser();
     Stage stage;
     @FXML
@@ -88,7 +90,7 @@ public class AppointmentFormController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/edu/fxml/CalendarTab.fxml"));
         calendarTabController = loader.getController();
-       
+
         this.populateCustomers();
         hours.addAll(this.getHours());
         appointmentStartTime.getItems().clear();
@@ -115,7 +117,8 @@ public class AppointmentFormController implements Initializable {
     }
 
     /**
-     * Utility method to get a list of hours to populate the drop-downs on the form
+     * Utility method to get a list of hours to populate the drop-downs on the
+     * form
      *
      * @return List of String
      */
@@ -125,7 +128,7 @@ public class AppointmentFormController implements Initializable {
         List<String> hourSelections = new ArrayList<>();
         while (ldt.isBefore(nextDay.minus(15, ChronoUnit.MINUTES))) {
             ldt = ldt.plus(15, ChronoUnit.MINUTES);
-            hourSelections.add(ldt.format(DateTimeFormatter.ofPattern("hh:mm a")));
+            hourSelections.add(ldt.format(DateTimeFormatter.ofPattern("h:mm a")));
         }
 
         return hourSelections;
@@ -155,9 +158,7 @@ public class AppointmentFormController implements Initializable {
         appointmentStartTime.getEditor().clear();
         appointmentForm.setVisible(false);
     }
-    SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-//Date date = isoFormat.parse("2010-05-23T09:01:02");
     /**
      * Saves an appointment from data entered into the appointment form
      */
@@ -168,7 +169,7 @@ public class AppointmentFormController implements Initializable {
         System.out.println("Save Appointment");
         Customer customer = appointmentCustomer.getValue();
         Appointment appt = new Appointment();
-        System.out.println("***CUSTOMER ID: "+customer.getCustomerId());
+        System.out.println("***CUSTOMER ID: " + customer.getCustomerId());
         appt.setCustomerId(customer.getCustomerId());
         appt.setStart(formatDateTime(appointmentDate.getValue(),
                 appointmentStartTime.getValue()));
@@ -176,17 +177,17 @@ public class AppointmentFormController implements Initializable {
                 getValue()));
         appt.setCreateDate(Instant.now());
         appt.setCreatedBy(currentUserId);
-      appt.setLastUpdate(Instant.now());
+        appt.setLastUpdate(Instant.now());
         appt.setLastUpdateBy(currentUserId);
 
         appt.setDescription(appointmentDescription.getText());
         appt.setLocation(appointmentLocation.getText());
         //appt.setTitle(String.format("apointment with %s with regard to %s",
         //        customer.getCustomerName(), appt.getDescription()));
-        appt.setTitle("blahh title");
+        appt.setTitle(appointmentTitle.getText());
         appt.setUrl("http://localhost");
         appt.setContact(currentUserId);
-      
+
         try {
             appointmentDAO.addAppointment(appt);
         } catch (Exception ex) {
@@ -199,8 +200,8 @@ public class AppointmentFormController implements Initializable {
     }
 
     /**
-     * converts a {@link LocalDate} and time {@link String} to a Java {@link Date} for persistence
-     * as a mysql compatible TIMESTAMP
+     * converts a {@link LocalDate} and time {@link String} to a Java
+     * {@link Date} for persistence as a mysql compatible TIMESTAMP
      *
      * @param ld
      * @param time
@@ -212,7 +213,6 @@ public class AppointmentFormController implements Initializable {
         LocalDateTime localDateTime = LocalDateTime.of(ld, lt);
         ZonedDateTime localZoned = localDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime utcZoned = localZoned.withZoneSameInstant(ZoneOffset.UTC);
-        isoFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return utcZoned.toInstant();
         // return  utcZoned.toInstant().toString().replaceAll("Z", "");
 
@@ -221,14 +221,11 @@ public class AppointmentFormController implements Initializable {
 
     public void populateCustomers() {
 
-      
         List<Customer> customerListResults = customerDAO.getAllCustomers();
 
         appointmentCustomer.getItems().addAll(customerListResults);
 
     }
-
- 
 
     @FXML
     public void validateCustomerSelection() {
@@ -254,5 +251,4 @@ public class AppointmentFormController implements Initializable {
         this.calendarTabController = con;
     }
 
-  
 }

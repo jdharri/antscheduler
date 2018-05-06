@@ -7,6 +7,7 @@ package edu.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -278,10 +279,13 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-                .withZone(ZoneId.systemDefault());
+        String start = LocalDateTime.ofInstant(this.getStart(), ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+        String end = LocalDateTime.ofInstant(this.getEnd(), ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+
         return String.
-                format("%s \n  %s - %s \n %s", this.title, formatter.format(start), end,
+                format("%s \n%s - %s\n%s", this.title, start, end,
                         this.description);
     }
 

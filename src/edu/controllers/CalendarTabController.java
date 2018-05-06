@@ -26,7 +26,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -115,7 +114,7 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
         Date lastOfWeek = Date.from(last.atTime(23, 59)
                 .atZone(ZoneId.systemDefault()).toInstant());
-        System.out.println("query from: " + first + " to: " + last);
+      
         monthList.getItems().removeAll(monthList.getItems());
         List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfWeek.
                 toInstant(),
