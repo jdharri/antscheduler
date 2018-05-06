@@ -280,7 +280,7 @@ public class Appointment implements Serializable {
     @Override
     public String toString() {
         String start = LocalDateTime.ofInstant(this.getStart(), ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT));
         String end = LocalDateTime.ofInstant(this.getEnd(), ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 

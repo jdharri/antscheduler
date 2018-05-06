@@ -81,10 +81,7 @@ public class LoginController implements Initializable {
             window.setScene(mainViewScene);
             window.show();
         } else {
-            System.out.println("username entered:" + loginUsername.getText());
-            System.out.println("should have been username: " + user.getUserName());
-            System.out.println("Password: " + loginPassword.getText());
-            System.out.println("shoudl have been password: " + user.getPassword());
+         
             loginLable.setText("Authentication failed");
         }
 

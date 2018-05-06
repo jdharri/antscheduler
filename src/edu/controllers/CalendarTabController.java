@@ -87,7 +87,7 @@ public class CalendarTabController implements Initializable {
 
         calendarTab.getChildren().forEach(node -> node.setVisible(false));
         if (!calendarTab.getChildren().contains(appointmentPane)) {
-            System.out.println("************ not a child adding");
+
             calendarTab.getChildren().add(appointmentPane);
         }
         appointmentPane.setVisible(true);
@@ -97,7 +97,7 @@ public class CalendarTabController implements Initializable {
      * Makes the calendar pane visible
      */
     public void showCalendar() {
-        System.out.println("****************showCalendar");
+
         calendarTab.getChildren().forEach(node -> node.setVisible(true));
 
     }
@@ -106,7 +106,6 @@ public class CalendarTabController implements Initializable {
      * Displays the appointments by week
      */
     public void displayWeeklyAppointments() {
-        System.out.println("*****************displayWeeklyAppointments");
 
         LocalDate first = LocalDate.now().with(DayOfWeek.MONDAY);
         LocalDate last = LocalDate.now().with(DayOfWeek.SUNDAY);
@@ -114,7 +113,7 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
         Date lastOfWeek = Date.from(last.atTime(23, 59)
                 .atZone(ZoneId.systemDefault()).toInstant());
-      
+
         monthList.getItems().removeAll(monthList.getItems());
         List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfWeek.
                 toInstant(),
@@ -128,12 +127,12 @@ public class CalendarTabController implements Initializable {
      * Displays appointments by month
      */
     public void displayMonthlyAppointments() {
-        System.out.println("*****************displayMonthlyAppointments");
+
         LocalDate first = LocalDate.now().withDayOfMonth(1);
         LocalDate last = LocalDate.now().withDayOfMonth(first.lengthOfMonth());
         Date firstOfMonth = Date.from(first.atStartOfDay()
                 .atZone(ZoneId.systemDefault()).toInstant());
-        System.out.println("query from: " + first + " to: " + last);
+
         Date lastOfMonth = Date.from(last.atTime(23, 59)
                 .atZone(ZoneId.systemDefault()).toInstant());
         monthList.getItems().removeAll(monthList.getItems());

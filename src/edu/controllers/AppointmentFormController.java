@@ -63,7 +63,7 @@ public class AppointmentFormController implements Initializable {
     private TextField appointmentLocation;
     @FXML
     private TextArea appointmentDescription;
-    @FXML 
+    @FXML
     private TextField appointmentTitle;
     final ObservableList hours = FXCollections.observableArrayList();
 
@@ -140,7 +140,6 @@ public class AppointmentFormController implements Initializable {
      * @throws IOException
      */
     public void cancelAppointment() throws IOException {
-        System.out.println("************ cancel appointment");
         calendarTabController.showCalendar();
 
         this.clearForm();
@@ -166,10 +165,10 @@ public class AppointmentFormController implements Initializable {
     public void saveAppointment() throws ParseException {
 
         final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
-        System.out.println("Save Appointment");
+
         Customer customer = appointmentCustomer.getValue();
         Appointment appt = new Appointment();
-        System.out.println("***CUSTOMER ID: " + customer.getCustomerId());
+
         appt.setCustomerId(customer.getCustomerId());
         appt.setStart(formatDateTime(appointmentDate.getValue(),
                 appointmentStartTime.getValue()));

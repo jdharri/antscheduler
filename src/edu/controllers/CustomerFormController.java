@@ -53,7 +53,7 @@ public class CustomerFormController implements Initializable {
     private Integer customerId;
     @FXML
     private Button addNewUser;
-//     @FXML
+
     private CustomerListController customerListController;
     private final AppointmentDAO appointmentDao = new AppointmentDAO();
     private final CustomerDAO customerDAO = new CustomerDAO();
@@ -90,18 +90,7 @@ public class CustomerFormController implements Initializable {
      * @param customer
      */
     public void populateCustomer(final Customer customer) {
-//
-//        Address custAddr = (Address) session.createQuery("from Address WHERE addressId=:addressId")
-//                .setParameter("addressId", customer.getAddressId())
-//                .getSingleResult();
-//
-//        City custCity = (City) session.createQuery("from City WHERE cityId=:cityId")
-//                .setParameter("cityId", custAddr.getCityId())
-//                .getSingleResult();
-//        Country custCountry = (Country) session.createQuery(
-//                "from Country WHERE countryId=:countryId")
-//                .setParameter("countryId", custCity.getCountryId())
-//                .getSingleResult();
+
         this.customerId = customer.getCustomerId();
         this.customerName.setText(customer.getCustomerName());
         this.address.setText(customer.getAddress().getAddress());
@@ -128,20 +117,7 @@ public class CustomerFormController implements Initializable {
         Address custAddress = null;
         if (this.customerId != null) {
             customer = customerDAO.getCustomerById(customerId);
-//
-//                custAddress = (Address) session.createQuery(
-//                        "from Address WHERE addressId=:addressId")
-//                        .setParameter("addressId", customer.getAddressId())
-//                        .getSingleResult();
-//
-//                
-//                custCity = (City) session.createQuery("from City WHERE cityId=:cityId")
-//                        .setParameter("cityId", custAddress.getCityId())
-//                        .getSingleResult();
-//                custCountry = (Country) session.createQuery(
-//                        "from Country WHERE countryId=:countryId")
-//                        .setParameter("countryId", custCity.getCountryId())
-//                        .getSingleResult();
+
         } else {
             custCountry = new Country();
             custCity = new City();
@@ -149,15 +125,12 @@ public class CustomerFormController implements Initializable {
             customer = new Customer();
         }
         try {
-            //  Country custCountry = new Country();
-//            Address address = new Address();
-         
+
             custCountry.setCountry(country.getText());
             custCountry.setCreateDate(new Date());
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(new Date());
             custCountry.setLastUpdateBy(currentUserId);
-           
 
             custCity.setCity(city.getText());
             custCity.setCountry(custCountry);
@@ -165,9 +138,7 @@ public class CustomerFormController implements Initializable {
             custCity.setCreatedBy(currentUserId);
             custCity.setLastUpdate(new Date());
             custCity.setLastUpdateBy(currentUserId);
-          
-//
-//        Address custAddress = new Address();
+
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
             custAddress.setCity(custCity);
@@ -177,14 +148,7 @@ public class CustomerFormController implements Initializable {
             custAddress.setLastUpdate(new Date());
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
-           
-          
-//
-//            session.save(custAddress);
-//            System.out.println("***********************************addressId: " + custAddress.
-//                    getAddressId());
-//
-//            customer.setCustomerName(customerName.getText());
+
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(new Date());
             customer.setActive(true);
@@ -192,7 +156,6 @@ public class CustomerFormController implements Initializable {
             customer.setCreatedBy(currentUserId);
             customer.setLastUpdateBy(currentUserId);
             customer.setAddress(custAddress);
-//            customer.setAddressId(custAddress.getAddressId());
 
             customerDAO.editCustomer(customer);
         } catch (Exception ex) {

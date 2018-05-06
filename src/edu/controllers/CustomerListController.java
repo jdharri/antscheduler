@@ -72,8 +72,6 @@ public class CustomerListController implements Initializable {
             public void changed(ObservableValue<? extends Customer> observable, Customer oldValue,
                     Customer newValue) {
                 if (null != newValue) {
-                    System.out.println(newValue.getCustomerName() + " Id: " + newValue.
-                            getCustomerId());
                     customerForm.setVisible(true);
                     customerFormController.populateCustomer(newValue);
                 }
@@ -84,21 +82,14 @@ public class CustomerListController implements Initializable {
     }
 
     public void queryForAppointments() {
-        System.out.println("querying for appointments in the next 15 minutes");
-//        LocalDateTime now = LocalDateTime.now();
-//        LocalDateTime fifteenMinutesFromNow = now.plus(Duration.ofMinutes(15));
-//        Date start = Date.from(now.toInstant(ZoneOffset.UTC));
-//        Date end = Date.from(fifteenMinutesFromNow.toInstant(ZoneOffset.UTC));
-        //  System.out.println("***********query start: " + start + "  query end: " + end);
         Instant now = Instant.now();
-
         List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(now, now.plus(15, ChronoUnit.MINUTES));
-        System.out.println(appointments.size() + " appointments found");
+
         createAppointmentAlerts(appointments);
     }
 
     public void createAppointmentAlerts(final List<Appointment> appointments) {
-        System.out.println("creating appointment alerts");
+       
         for (Appointment appt : appointments) {
             long timeTillMetting = ChronoUnit.MINUTES.between(Instant.now(), appt.getStart());
             Customer customer = customerDAO.getCustomerById(appt.getCustomerId());
@@ -115,9 +106,7 @@ public class CustomerListController implements Initializable {
         }
     }
 
-    public void test() {
-        System.out.println("***********************************test");
-    }
+   
 
     public void addCustomer(Customer customer) {
         customers.add(customer);
