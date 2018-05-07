@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -14,7 +15,11 @@
                <items>
                   <AnchorPane prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ListView fx:id="customerList" prefHeight="400.0" prefWidth="200.0" />
+                        <ListView fx:id="customerList" prefHeight="400.0" prefWidth="200.0" AnchorPane.topAnchor="0.0">
+                           <padding>
+                              <Insets top="40.0" />
+                           </padding></ListView>
+                        <Button fx:id="addCustButton" mnemonicParsing="false" onAction="#addNewCustomer" text="Add New" />
                      </children>
                   </AnchorPane>
                   <fx:include fx:id="customerForm" source="CustomerForm.fxml" />

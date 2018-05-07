@@ -1,4 +1,3 @@
-
 package edu.jpacontrollers;
 
 import edu.exceptions.NonexistentEntityException;
@@ -28,13 +27,14 @@ public class AddressJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Address address) throws PreexistingEntityException, Exception {
+    public Address create(Address address) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(address);
             em.getTransaction().commit();
+            em.flush();
         } catch (Exception ex) {
             if (findAddress(address.getAddressId()) != null) {
                 throw new PreexistingEntityException("Address " + address + " already exists.", ex);
@@ -45,6 +45,7 @@ public class AddressJpaController implements Serializable {
                 em.close();
             }
         }
+        return address;
     }
 
     public void edit(Address address) throws NonexistentEntityException, Exception {
@@ -59,8 +60,8 @@ public class AddressJpaController implements Serializable {
             if (msg == null || msg.length() == 0) {
                 Integer id = address.getAddressId();
                 if (findAddress(id) == null) {
-                    throw new NonexistentEntityException("The address with id " + id +
-                            " no longer exists.");
+                    throw new NonexistentEntityException("The address with id " + id
+                            + " no longer exists.");
                 }
             }
             throw ex;
@@ -81,8 +82,8 @@ public class AddressJpaController implements Serializable {
                 address = em.getReference(Address.class, id);
                 address.getAddressId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The address with id " + id +
-                        " no longer exists.", enfe);
+                throw new NonexistentEntityException("The address with id " + id
+                        + " no longer exists.", enfe);
             }
             em.remove(address);
             em.getTransaction().commit();
@@ -138,5 +139,5 @@ public class AddressJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

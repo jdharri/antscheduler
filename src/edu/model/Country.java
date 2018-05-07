@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -49,7 +51,7 @@ public class Country implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "countryId")
     private Integer countryId;
     @Basic(optional = false)
@@ -149,8 +151,8 @@ public class Country implements Serializable {
             return false;
         }
         Country other = (Country) object;
-        if ((this.countryId == null && other.countryId != null) ||
-                (this.countryId != null && !this.countryId.equals(other.countryId))) {
+        if ((this.countryId == null && other.countryId != null)
+                || (this.countryId != null && !this.countryId.equals(other.countryId))) {
             return false;
         }
         return true;
@@ -160,5 +162,5 @@ public class Country implements Serializable {
     public String toString() {
         return "antscheduler.model.Country[ countryId=" + countryId + " ]";
     }
-    
+
 }

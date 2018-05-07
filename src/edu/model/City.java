@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -55,16 +57,15 @@ public class City implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cityId")
     private Integer cityId;
     @Basic(optional = false)
     @Column(name = "city")
     private String city;
-   @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "countryId",referencedColumnName = "countryId", unique = true, nullable = true, insertable = true,
-            updatable = true)
-  
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "countryId", referencedColumnName = "countryId", unique = true, nullable = true, insertable = true,
+            updatable = false)
     private Country country;
     @Basic(optional = false)
     @Column(name = "createDate")
@@ -92,7 +93,7 @@ public class City implements Serializable {
             Date lastUpdate, String lastUpdateBy) {
         this.cityId = cityId;
         this.city = city;
-        this.country= country;
+        this.country = country;
         this.createDate = createDate;
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
@@ -169,8 +170,8 @@ public class City implements Serializable {
             return false;
         }
         City other = (City) object;
-        if ((this.cityId == null && other.cityId != null) ||
-                (this.cityId != null && !this.cityId.equals(other.cityId))) {
+        if ((this.cityId == null && other.cityId != null)
+                || (this.cityId != null && !this.cityId.equals(other.cityId))) {
             return false;
         }
         return true;
@@ -180,5 +181,5 @@ public class City implements Serializable {
     public String toString() {
         return "antscheduler.model.City[ cityId=" + cityId + " ]";
     }
-    
+
 }

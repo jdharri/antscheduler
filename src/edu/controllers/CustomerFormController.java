@@ -1,7 +1,10 @@
 package edu.controllers;
 
 import edu.MainApp;
+import edu.dao.AddressDAO;
 import edu.dao.AppointmentDAO;
+import edu.dao.CityDAO;
+import edu.dao.CountryDAO;
 import edu.dao.CustomerDAO;
 import edu.model.Address;
 import edu.model.City;
@@ -57,6 +60,11 @@ public class CustomerFormController implements Initializable {
     private CustomerListController customerListController;
     private final AppointmentDAO appointmentDao = new AppointmentDAO();
     private final CustomerDAO customerDAO = new CustomerDAO();
+    private final CityDAO cityDAO = new CityDAO();
+    private final CountryDAO countryDAO = new CountryDAO();
+    private final AddressDAO addressDAO = new AddressDAO();
+
+    private final Logger logger = Logger.getLogger(CustomerFormController.class.getName());
 
     /**
      * Initializes the controller class.
@@ -120,6 +128,7 @@ public class CustomerFormController implements Initializable {
 
         } else {
             custCountry = new Country();
+
             custCity = new City();
             custAddress = new Address();
             customer = new Customer();
@@ -131,17 +140,22 @@ public class CustomerFormController implements Initializable {
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(new Date());
             custCountry.setLastUpdateBy(currentUserId);
+            custCountry = countryDAO.addCountry(custCountry);
+            System.out.println("******************************countryId: " + custCountry.getCountryId());
 
             custCity.setCity(city.getText());
-            custCity.setCountry(custCountry);
             custCity.setCreateDate(new Date());
             custCity.setCreatedBy(currentUserId);
             custCity.setLastUpdate(new Date());
             custCity.setLastUpdateBy(currentUserId);
 
+            custCity.setCountry(custCountry);
+         // custCity = cityDAO.addCity(custCity);
+            System.out.println("******************************cityId: " + custCity.getCityId());
+
+            //  cityDAO.editCity(custCity);
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
-            custAddress.setCity(custCity);
             custAddress.setCreateDate(new Date());
             custAddress.setCreatedBy(currentUserId);
             custAddress.setLastUpdateBy(currentUserId);
@@ -149,17 +163,21 @@ public class CustomerFormController implements Initializable {
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
 
+           custAddress.setCity(custCity);
+            custAddress = addressDAO.addAddress(custAddress);
+
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(new Date());
             customer.setActive(true);
             customer.setLastUpdate(new Date());
             customer.setCreatedBy(currentUserId);
             customer.setLastUpdateBy(currentUserId);
+            // customer = customerDAO.addCustomer(customer);
             customer.setAddress(custAddress);
+            customerDAO.addCustomer(customer);
 
-            customerDAO.editCustomer(customer);
         } catch (Exception ex) {
-            Logger.getLogger(CustomerFormController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.WARNING, "Problem saving customer{0}", ex);
         }
 
         this.cancel.fire();

@@ -1,4 +1,3 @@
-
 package edu.jpacontrollers;
 
 import edu.exceptions.NonexistentEntityException;
@@ -28,23 +27,21 @@ public class CountryJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Country country) throws PreexistingEntityException, Exception {
+    public Country create(Country country) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(country);
+            em.flush();
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findCountry(country.getCountryId()) != null) {
-                throw new PreexistingEntityException("Country " + country + " already exists.", ex);
-            }
-            throw ex;
+
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+        return country;
     }
 
     public void edit(Country country) throws NonexistentEntityException, Exception {
@@ -59,8 +56,8 @@ public class CountryJpaController implements Serializable {
             if (msg == null || msg.length() == 0) {
                 Integer id = country.getCountryId();
                 if (findCountry(id) == null) {
-                    throw new NonexistentEntityException("The country with id " + id +
-                            " no longer exists.");
+                    throw new NonexistentEntityException("The country with id " + id
+                            + " no longer exists.");
                 }
             }
             throw ex;
@@ -81,8 +78,8 @@ public class CountryJpaController implements Serializable {
                 country = em.getReference(Country.class, id);
                 country.getCountryId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The country with id " + id +
-                        " no longer exists.", enfe);
+                throw new NonexistentEntityException("The country with id " + id
+                        + " no longer exists.", enfe);
             }
             em.remove(country);
             em.getTransaction().commit();
@@ -138,5 +135,5 @@ public class CountryJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

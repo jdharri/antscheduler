@@ -1,4 +1,3 @@
-
 package edu.jpacontrollers;
 
 import edu.exceptions.NonexistentEntityException;
@@ -28,13 +27,14 @@ public class CustomerJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Customer customer) throws PreexistingEntityException, Exception {
+    public Customer create(Customer customer) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(customer);
             em.getTransaction().commit();
+            em.flush();
         } catch (Exception ex) {
             if (findCustomer(customer.getCustomerId()) != null) {
                 throw new PreexistingEntityException("Customer " + customer + " already exists.", ex);
@@ -45,6 +45,7 @@ public class CustomerJpaController implements Serializable {
                 em.close();
             }
         }
+        return customer;
     }
 
     public void edit(Customer customer) throws NonexistentEntityException, Exception {
@@ -59,8 +60,8 @@ public class CustomerJpaController implements Serializable {
             if (msg == null || msg.length() == 0) {
                 Integer id = customer.getCustomerId();
                 if (findCustomer(id) == null) {
-                    throw new NonexistentEntityException("The customer with id " + id +
-                            " no longer exists.");
+                    throw new NonexistentEntityException("The customer with id " + id
+                            + " no longer exists.");
                 }
             }
             throw ex;
@@ -81,8 +82,8 @@ public class CustomerJpaController implements Serializable {
                 customer = em.getReference(Customer.class, id);
                 customer.getCustomerId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The customer with id " + id +
-                        " no longer exists.", enfe);
+                throw new NonexistentEntityException("The customer with id " + id
+                        + " no longer exists.", enfe);
             }
             em.remove(customer);
             em.getTransaction().commit();
@@ -138,5 +139,5 @@ public class CustomerJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

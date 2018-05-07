@@ -28,13 +28,14 @@ public class CityJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(City city) throws PreexistingEntityException, Exception {
+    public City create(City city) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(city);
             em.getTransaction().commit();
+            em.flush();
         } catch (Exception ex) {
             if (findCity(city.getCityId()) != null) {
                 throw new PreexistingEntityException("City " + city + " already exists.", ex);
@@ -45,6 +46,7 @@ public class CityJpaController implements Serializable {
                 em.close();
             }
         }
+        return city;
     }
 
     public void edit(City city) throws NonexistentEntityException, Exception {

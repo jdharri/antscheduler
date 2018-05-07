@@ -25,8 +25,8 @@ public class CustomerDAO {
         con = new CustomerJpaController(emf);
     }
 
-    public void addCustomer(Customer customer) throws Exception {
-        con.create(customer);
+    public Customer addCustomer(Customer customer) throws Exception {
+        return con.create(customer);
     }
 
     public void editCustomer(Customer customer) throws Exception {

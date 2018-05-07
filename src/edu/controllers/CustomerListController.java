@@ -5,18 +5,14 @@ import edu.dao.CustomerDAO;
 import edu.model.Appointment;
 import edu.model.Customer;
 import java.net.URL;
-import java.time.Duration;
 import java.time.Instant;
 
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.ZoneId;
 
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -88,8 +84,12 @@ public class CustomerListController implements Initializable {
         createAppointmentAlerts(appointments);
     }
 
+    public void addNewCustomer() {
+        customerForm.setVisible(true);
+    }
+
     public void createAppointmentAlerts(final List<Appointment> appointments) {
-       
+
         for (Appointment appt : appointments) {
             long timeTillMetting = ChronoUnit.MINUTES.between(Instant.now(), appt.getStart());
             Customer customer = customerDAO.getCustomerById(appt.getCustomerId());
@@ -105,8 +105,6 @@ public class CustomerListController implements Initializable {
             alert.show();
         }
     }
-
-   
 
     public void addCustomer(Customer customer) {
         customers.add(customer);

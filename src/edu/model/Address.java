@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -65,7 +67,7 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addressId")
     private Integer addressId;
     @Basic(optional = false)
@@ -74,8 +76,8 @@ public class Address implements Serializable {
     @Basic(optional = false)
     @Column(name = "address2")
     private String address2;
-   @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cityId",referencedColumnName = "cityId", unique = true, nullable = true, insertable = true,
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cityId", referencedColumnName = "cityId", unique = true, nullable = true, insertable = true,
             updatable = true)
     private City city;
     @Basic(optional = false)
@@ -214,8 +216,8 @@ public class Address implements Serializable {
             return false;
         }
         Address other = (Address) object;
-        if ((this.addressId == null && other.addressId != null) ||
-                (this.addressId != null && !this.addressId.equals(other.addressId))) {
+        if ((this.addressId == null && other.addressId != null)
+                || (this.addressId != null && !this.addressId.equals(other.addressId))) {
             return false;
         }
         return true;
@@ -225,5 +227,5 @@ public class Address implements Serializable {
     public String toString() {
         return "antscheduler.model.Address[ addressId=" + addressId + " ]";
     }
-    
+
 }

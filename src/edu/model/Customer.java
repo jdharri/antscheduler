@@ -13,6 +13,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -60,7 +62,7 @@ public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customerId")
     private Integer customerId;
     @Basic(optional = false)
@@ -70,9 +72,8 @@ public class Customer implements Serializable {
     //@OneToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name = "address_addressId")
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "addressId",referencedColumnName = "addressId", unique = true, nullable = true, insertable = true,
+    @JoinColumn(name = "addressId", referencedColumnName = "addressId", unique = true, nullable = true, insertable = true,
             updatable = true)
-   
     private Address address;
     @Basic(optional = false)
     @Column(name = "active")
@@ -196,7 +197,7 @@ public class Customer implements Serializable {
         return true;
     }
 
-     @Override
+    @Override
     public String toString() {
         return this.customerName;
     }
