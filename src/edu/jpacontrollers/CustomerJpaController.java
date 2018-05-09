@@ -33,8 +33,9 @@ public class CustomerJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(customer);
+             em.flush();
             em.getTransaction().commit();
-            em.flush();
+           
         } catch (Exception ex) {
             if (findCustomer(customer.getCustomerId()) != null) {
                 throw new PreexistingEntityException("Customer " + customer + " already exists.", ex);

@@ -140,9 +140,8 @@ public class CustomerFormController implements Initializable {
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(new Date());
             custCountry.setLastUpdateBy(currentUserId);
-            custCountry = countryDAO.addCountry(custCountry);
-            System.out.println("******************************countryId: " + custCountry.getCountryId());
-
+           // custCountry = countryDAO.addCountry(custCountry);
+          
             custCity.setCity(city.getText());
             custCity.setCreateDate(new Date());
             custCity.setCreatedBy(currentUserId);
@@ -151,8 +150,7 @@ public class CustomerFormController implements Initializable {
 
             custCity.setCountry(custCountry);
          // custCity = cityDAO.addCity(custCity);
-            System.out.println("******************************cityId: " + custCity.getCityId());
-
+         
             //  cityDAO.editCity(custCity);
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
@@ -164,7 +162,7 @@ public class CustomerFormController implements Initializable {
             custAddress.setPostalCode(postalCode.getText());
 
            custAddress.setCity(custCity);
-            custAddress = addressDAO.addAddress(custAddress);
+           // custAddress = addressDAO.addAddress(custAddress);
 
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(new Date());
@@ -174,6 +172,7 @@ public class CustomerFormController implements Initializable {
             customer.setLastUpdateBy(currentUserId);
             // customer = customerDAO.addCustomer(customer);
             customer.setAddress(custAddress);
+            System.out.println("88888888888888888888");
             customerDAO.addCustomer(customer);
 
         } catch (Exception ex) {

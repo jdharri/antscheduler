@@ -208,7 +208,7 @@ public class AppointmentFormController implements Initializable {
      */
     public Instant formatDateTime(LocalDate ld, String time) {
 
-        LocalTime lt = LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm a"));
+        LocalTime lt = LocalTime.parse(time, DateTimeFormatter.ofPattern("h:mm a"));
         LocalDateTime localDateTime = LocalDateTime.of(ld, lt);
         ZonedDateTime localZoned = localDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime utcZoned = localZoned.withZoneSameInstant(ZoneOffset.UTC);
