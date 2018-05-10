@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.controllers;
 
+import edu.MainApp;
 import edu.dao.AppointmentDAO;
 import edu.model.Appointment;
 import java.io.IOException;
@@ -51,6 +47,7 @@ public class CalendarTabController implements Initializable {
     @FXML
     private RadioButton weekToggle;
     private final AppointmentDAO appointmentDao = new AppointmentDAO();
+    private int currentUser;
 
     /**
      * Initializes the controller class.
@@ -61,10 +58,10 @@ public class CalendarTabController implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
         try {
+            // currentUser = MainApp.getCurrentUser().getUserId();
+            currentUser = 1;
             FXMLLoader loader;
-//            ToggleGroup weekMonthRadioGroup = new ToggleGroup();
-            // weekToggle.setSelected(true);
-//            monthToggle.setToggleGroup(weekMonthRadioGroup);
+
             loader = new FXMLLoader(getClass().getResource("/edu/fxml/AppointmentForm.fxml"));
             appointmentPane = loader.load();
             appointmentFormController = loader.<AppointmentFormController>getController();
@@ -115,9 +112,9 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
 
         monthList.getItems().removeAll(monthList.getItems());
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfWeek.
+        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDatesForUser(firstOfWeek.
                 toInstant(),
-                lastOfWeek.toInstant());
+                lastOfWeek.toInstant(), new Integer(currentUser).toString());
 
         appointments.forEach(appt -> monthList.getItems().add(appt));
 

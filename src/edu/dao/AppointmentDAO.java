@@ -56,4 +56,13 @@ public class AppointmentDAO {
         return q.getResultList();
     }
 
+    public List<Appointment> getAppointmentsBetweenDatesForUser(Instant from, Instant to, String userId) {
+        Query q = con.getEntityManager().createQuery(
+                "FROM Appointment AS a WHERE a.start BETWEEN :firstOfWeek AND :lastOfWeek AND a.contact = :contact");
+        q.setParameter("firstOfWeek", from);
+        q.setParameter("lastOfWeek", to);
+        q.setParameter("contact", userId);
+        return q.getResultList();
+    }
+
 }

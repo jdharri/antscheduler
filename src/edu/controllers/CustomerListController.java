@@ -1,5 +1,6 @@
 package edu.controllers;
 
+import edu.MainApp;
 import edu.dao.AppointmentDAO;
 import edu.dao.CustomerDAO;
 import edu.model.Appointment;
@@ -79,7 +80,10 @@ public class CustomerListController implements Initializable {
 
     public void queryForAppointments() {
         Instant now = Instant.now();
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(now, now.plus(15, ChronoUnit.MINUTES));
+        Instant fifteenMinutesFromNow = now.plus(15, ChronoUnit.MINUTES);
+        List<Appointment> appointments = appointmentDao
+                .getAppointmentsBetweenDatesForUser(now, fifteenMinutesFromNow, 
+                        new Integer(MainApp.getCurrentUser().getUserId()).toString());
 
         createAppointmentAlerts(appointments);
     }
