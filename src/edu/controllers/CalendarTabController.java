@@ -58,8 +58,8 @@ public class CalendarTabController implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
         try {
-            // currentUser = MainApp.getCurrentUser().getUserId();
-            currentUser = 1;
+             currentUser = MainApp.getCurrentUser().getUserId();
+           // currentUser = 1;
             FXMLLoader loader;
 
             loader = new FXMLLoader(getClass().getResource("/edu/fxml/AppointmentForm.fxml"));
@@ -134,9 +134,9 @@ public class CalendarTabController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toInstant());
         monthList.getItems().removeAll(monthList.getItems());
 
-        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDates(firstOfMonth.
+        List<Appointment> appointments = appointmentDao.getAppointmentsBetweenDatesForUser(firstOfMonth.
                 toInstant(),
-                lastOfMonth.toInstant());
+                lastOfMonth.toInstant(), new Integer(currentUser).toString());
 
         appointments.forEach(appt -> monthList.getItems().add(appt));
 

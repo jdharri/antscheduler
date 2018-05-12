@@ -19,10 +19,12 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -36,6 +38,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -158,44 +162,99 @@ public class AppointmentFormController implements Initializable {
         appointmentForm.setVisible(false);
     }
 
+    public boolean appointmentOutsideWorkingHours(String startTime) {
+        boolean saveAnyway = true;
+        LocalTime lt = LocalTime.parse(appointmentStartTime.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
+        System.out.println("*************localtime for start of appointment: "+lt);
+        if (lt.isBefore(LocalTime.of(9, 0)) || lt.isAfter(LocalTime.of(17, 0))) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are scheduling an appointment for a time outside of working hours. "
+                    + "Are you sure you want to save this appointment?");
+
+            alert.setTitle("Appointment outside working hours");
+            alert.setHeaderText("Appointment outside working hours");
+            Optional<ButtonType> act = alert.showAndWait();
+            if (act.get() == ButtonType.CANCEL) {
+                saveAnyway = false;
+            }
+
+        }
+        return saveAnyway;
+    }
+
+    public boolean appointmentOverlap(Instant start, Instant end) {
+        boolean overlaps = false;
+        List<Appointment> overlappingAppointments = appointmentDAO.getOverlap(start, end, new Integer(currentUser.getUserId()).toString());
+        if (overlappingAppointments.size() > 0) {
+            
+          
+      
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are scheduling an appointment for a time overlaps another appointment. "
+                    + "Are you sure you want to save this appointment?");
+
+            alert.setTitle("Appointment overlaps another");
+            alert.setHeaderText("Appointment overlaps another");
+            Optional<ButtonType> act = alert.showAndWait();
+            if (act.get() == ButtonType.CANCEL) {
+                overlaps = true;
+            }
+
+     
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            overlaps = true;
+        }
+        System.out.println("appointment overlap: "+overlaps);
+        return overlaps;
+
+    }
+
     /**
      * Saves an appointment from data entered into the appointment form
      */
     @FXML
     public void saveAppointment() throws ParseException {
+        Instant start = formatDateTime(appointmentDate.getValue(),
+                appointmentStartTime.getValue());
+        Instant end = formatDateTime(appointmentDate.getValue(), appointmentEndTime.
+                getValue());
+        if (appointmentOutsideWorkingHours(appointmentStartTime.getValue()) && !(appointmentOverlap(start, end))) {
+            final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
 
-        final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
+            Customer customer = appointmentCustomer.getValue();
+            Appointment appt = new Appointment();
 
-        Customer customer = appointmentCustomer.getValue();
-        Appointment appt = new Appointment();
+            appt.setCustomerId(customer.getCustomerId());
+            appt.setStart(start);
+            appt.setEnd(end);
+            appt.setCreateDate(Instant.now());
+            appt.setCreatedBy(currentUserId);
+            appt.setLastUpdate(Instant.now());
+            appt.setLastUpdateBy(currentUserId);
 
-        appt.setCustomerId(customer.getCustomerId());
-        appt.setStart(formatDateTime(appointmentDate.getValue(),
-                appointmentStartTime.getValue()));
-        appt.setEnd(formatDateTime(appointmentDate.getValue(), appointmentEndTime.
-                getValue()));
-        appt.setCreateDate(Instant.now());
-        appt.setCreatedBy(currentUserId);
-        appt.setLastUpdate(Instant.now());
-        appt.setLastUpdateBy(currentUserId);
+            appt.setDescription(appointmentDescription.getText());
+            appt.setLocation(appointmentLocation.getText());
+            //appt.setTitle(String.format("apointment with %s with regard to %s",
+            //        customer.getCustomerName(), appt.getDescription()));
+            appt.setTitle(appointmentTitle.getText());
+            appt.setUrl("http://localhost");
+            appt.setContact(currentUserId);
 
-        appt.setDescription(appointmentDescription.getText());
-        appt.setLocation(appointmentLocation.getText());
-        //appt.setTitle(String.format("apointment with %s with regard to %s",
-        //        customer.getCustomerName(), appt.getDescription()));
-        appt.setTitle(appointmentTitle.getText());
-        appt.setUrl("http://localhost");
-        appt.setContact(currentUserId);
-
-        try {
-            appointmentDAO.addAppointment(appt);
-        } catch (Exception ex) {
-            Logger.getLogger(AppointmentFormController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                appointmentDAO.addAppointment(appt);
+            } catch (Exception ex) {
+                Logger.getLogger(AppointmentFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            calendarTabController.showCalendar();
+            this.clearForm();
+            calendarTabController.refresh();
         }
-        calendarTabController.showCalendar();
-        this.clearForm();
-        calendarTabController.refresh();
-
     }
 
     /**

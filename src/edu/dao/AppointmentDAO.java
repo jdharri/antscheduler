@@ -65,4 +65,13 @@ public class AppointmentDAO {
         return q.getResultList();
     }
 
+    public List<Appointment> getOverlap(Instant from, Instant to, String userId) {
+        Query q = con.getEntityManager().createQuery(
+                "FROM Appointment AS a WHERE a.start BETWEEN :start AND :end OR a.end BETWEEN :start AND :end AND a.contact = :contact");
+        q.setParameter("start", from);
+        q.setParameter("end", to);
+        q.setParameter("contact", userId);
+        return q.getResultList();
+    }
+
 }

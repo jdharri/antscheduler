@@ -285,7 +285,7 @@ public class Appointment implements Serializable {
                 .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 
         return String.
-                format("%s \n%s - %s\n%s", this.title, start, end,
+                format("%s\nCustomer: %s\n%s - %s\n%s", this.title, this.customerId, start, end,
                         this.description);
     }
 

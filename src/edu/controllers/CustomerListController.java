@@ -81,8 +81,9 @@ public class CustomerListController implements Initializable {
     public void queryForAppointments() {
         Instant now = Instant.now();
         Instant fifteenMinutesFromNow = now.plus(15, ChronoUnit.MINUTES);
+
         List<Appointment> appointments = appointmentDao
-                .getAppointmentsBetweenDatesForUser(now, fifteenMinutesFromNow, 
+                .getAppointmentsBetweenDatesForUser(now, fifteenMinutesFromNow,
                         new Integer(MainApp.getCurrentUser().getUserId()).toString());
 
         createAppointmentAlerts(appointments);

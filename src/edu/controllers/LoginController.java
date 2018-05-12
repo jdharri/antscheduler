@@ -1,10 +1,13 @@
-
 package edu.controllers;
 
 import edu.MainApp;
 import edu.dao.UserDAO;
 import edu.model.User;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.time.Instant;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 
@@ -68,25 +72,28 @@ public class LoginController implements Initializable {
 
     public void Login(ActionEvent event) throws Exception {
 
-        Parent mainViewParent = FXMLLoader.load(getClass().getResource("/edu/fxml/TabPane.fxml"));
-        Scene mainViewScene = new Scene(mainViewParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      
-
-       User user = userDao.findByUserName(loginUsername.getText());
-        if (loginPassword.getText().equals(user.getPassword())) {
-
-            loginLable.setText("authentication success");
-            MainApp.setCurrentUser(user);
-            window.setScene(mainViewScene);
-            window.show();
-        } else {
-         
+        FileWriter fw = new FileWriter("audit.txt", true);
+        PrintWriter pw = new PrintWriter(fw);
+        try {
+            User user = userDao.findByUserName(loginUsername.getText());
+            if (loginPassword.getText().equals(user.getPassword())) {
+                pw.printf("User: %s, logged into the system at: %s\n", loginUsername.getText(), Instant.now());
+                loginLable.setText("authentication success");
+                MainApp.setCurrentUser(user);
+                Parent mainViewParent = FXMLLoader.load(getClass().getResource("/edu/fxml/TabPane.fxml"));
+                Scene mainViewScene = new Scene(mainViewParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(mainViewScene);
+                window.show();
+            } else {
+                pw.printf("Failed authentication attempt for username: %s, at: %s\n", loginUsername.getText(), Instant.now());
+                loginLable.setText("Authentication failed");
+            }
+        } catch (NoResultException ex) {
+            pw.printf("Failed authentication attempt for username: %s, at: %s\n", loginUsername.getText(), Instant.now());
             loginLable.setText("Authentication failed");
         }
-
-      
-
+        pw.close();
     }
 
 }

@@ -1,0 +1,15 @@
+User: test, logged into the system at: 2018-05-12T17:24:56.442Z
+User: jdharri, logged into the system at: 2018-05-12T17:25:09.125Z
+Failed authentication attempt for username: asdf, at: 2018-05-12T17:25:27.044Z
+User: test, logged into the system at: 2018-05-12T18:00:30.384Z
+User: test, logged into the system at: 2018-05-12T18:01:12.070Z
+User: jdharri, logged into the system at: 2018-05-12T18:03:40.116Z
+User: test, logged into the system at: 2018-05-12T18:06:52.281Z
+User: test, logged into the system at: 2018-05-12T18:08:08.003Z
+User: test, logged into the system at: 2018-05-12T18:44:01.363Z
+User: test, logged into the system at: 2018-05-12T18:46:35.004Z
+User: test, logged into the system at: 2018-05-12T18:47:49.425Z
+User: test, logged into the system at: 2018-05-12T18:49:29.659Z
+User: test, logged into the system at: 2018-05-12T18:51:22.883Z
+User: test, logged into the system at: 2018-05-12T18:53:56.978Z
+User: test, logged into the system at: 2018-05-12T18:56:31.695Z
