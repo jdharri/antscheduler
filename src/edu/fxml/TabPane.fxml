@@ -14,13 +14,14 @@
             <tabs>
                 <fx:include fx:id="CustomerTab" source="CustomerTab.fxml" />
                 <fx:include fx:id="CalendarTab" source="CalendarTab.fxml" />
+                <fx:include fx:id="ReportsTab" source="ReportsTab.fxml" />
             </tabs>
         </TabPane>
     </children>
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
-   <padding>
-      <Insets right="10.0" />
-   </padding>
+    <padding>
+        <Insets right="10.0" />
+    </padding>
 </AnchorPane>

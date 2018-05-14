@@ -6,12 +6,12 @@
 package edu.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -89,14 +89,16 @@ public class Address implements Serializable {
     @Basic(optional = false)
     @Column(name = "createDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Convert(converter = InstantAttributeConverter.class)
+    private Instant createDate;
     @Basic(optional = false)
     @Column(name = "createdBy")
     private String createdBy;
     @Basic(optional = false)
     @Column(name = "lastUpdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
+    @Convert(converter = InstantAttributeConverter.class)
+    private Instant lastUpdate;
     @Basic(optional = false)
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
@@ -109,7 +111,7 @@ public class Address implements Serializable {
     }
 
     public Address(Integer addressId, String address, String address2, City city, String postalCode,
-            String phone, Date createDate, String createdBy, Date lastUpdate, String lastUpdateBy) {
+            String phone, Instant createDate, String createdBy, Instant lastUpdate, String lastUpdateBy) {
         this.addressId = addressId;
         this.address = address;
         this.address2 = address2;
@@ -170,11 +172,11 @@ public class Address implements Serializable {
         this.phone = phone;
     }
 
-    public Date getCreateDate() {
+    public Instant getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
@@ -186,11 +188,11 @@ public class Address implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public Instant getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

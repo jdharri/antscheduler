@@ -6,9 +6,10 @@
 package edu.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,14 +61,16 @@ public class Country implements Serializable {
     @Basic(optional = false)
     @Column(name = "createDate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Convert(converter = InstantAttributeConverter.class)
+    private Instant createDate;
     @Basic(optional = false)
     @Column(name = "createdBy")
     private String createdBy;
     @Basic(optional = false)
     @Column(name = "lastUpdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
+    @Convert(converter = InstantAttributeConverter.class)
+    private Instant lastUpdate;
     @Basic(optional = false)
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
@@ -79,8 +82,8 @@ public class Country implements Serializable {
         this.countryId = countryId;
     }
 
-    public Country(Integer countryId, String country, Date createDate, String createdBy,
-            Date lastUpdate, String lastUpdateBy) {
+    public Country(Integer countryId, String country, Instant createDate, String createdBy,
+            Instant lastUpdate, String lastUpdateBy) {
         this.countryId = countryId;
         this.country = country;
         this.createDate = createDate;
@@ -105,11 +108,11 @@ public class Country implements Serializable {
         this.country = country;
     }
 
-    public Date getCreateDate() {
+    public Instant getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
@@ -121,11 +124,11 @@ public class Country implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public Instant getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

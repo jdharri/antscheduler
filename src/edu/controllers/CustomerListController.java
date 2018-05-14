@@ -3,7 +3,10 @@ package edu.controllers;
 import edu.MainApp;
 import edu.dao.AppointmentDAO;
 import edu.dao.CustomerDAO;
+import edu.model.Address;
 import edu.model.Appointment;
+import edu.model.City;
+import edu.model.Country;
 import edu.model.Customer;
 import java.net.URL;
 import java.time.Instant;
@@ -14,8 +17,12 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -60,6 +67,8 @@ public class CustomerListController implements Initializable {
         customerForm.setVisible(false);
 
         this.populateUserList();
+        //  this.seedAppointments();
+//        seedCustomers();
 //        Alert alert = new Alert(AlertType.INFORMATION, "This is an alert");
 //        alert.show();
         this.queryForAppointments();
@@ -135,4 +144,87 @@ public class CustomerListController implements Initializable {
         this.populateUserList();
     }
 
+    public void seedAppointments() {
+        for (int i = 1; i < 11; i++) {
+            try {
+                Appointment ap1 = new Appointment();
+                ap1.setContact("1");
+                ap1.setCreateDate(Instant.now());
+                ap1.setCreatedBy("1");
+                ap1.setCustomerId(1);
+                ap1.setDescription("Follow-up appointment to discuss proposed contract");
+
+                Instant start = Instant.now().plus((i * 15), ChronoUnit.MINUTES);
+                ap1.setStart(start);
+                ap1.setEnd(start.plus(30, ChronoUnit.MINUTES));
+                ap1.setLastUpdate(Instant.now());
+                ap1.setLastUpdateBy("1");
+                ap1.setLocation("Local Starbucks");
+                ap1.setTitle("Contract proposal follow-up");
+                ap1.setUrl("http://localhost");
+                appointmentDao.addAppointment(ap1);
+            } catch (Exception ex) {
+                Logger.getLogger(CustomerListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    public void seedCustomers() {
+
+        List<String> names = Arrays.asList("Ella Newton", "Jo Bowman",
+                "Micheal Becker", "Alyssa Taylor", "Barbara Keller",
+                "Alvin Barnes", "Jeanne Massey", "Irvin Chandler",
+                "Levi Lindsey", "Minnie Stevens");
+        names.forEach(n -> {
+
+            try {
+                //create address
+                Address addy = new Address();
+                addy.setAddress("123 Someplace st.");
+                addy.setAddress2("STE #5");
+
+                //create city
+                City city = new City();
+                city.setCity("Shaboygan");
+
+                city.setCreateDate(Instant.now());
+                city.setCreatedBy("1");
+                city.setLastUpdate(Instant.now());
+                city.setLastUpdateBy("1");
+
+                //create Country
+                Country country = new Country();
+                country.setCountry("USA");
+                country.setCreateDate(Instant.now());
+                country.setCreatedBy("1");
+                country.setLastUpdate(Instant.now());
+                country.setLastUpdateBy("1");
+
+                city.setCountry(country);
+                addy.setCity(city);
+                addy.setCreateDate(Instant.now());
+                addy.setLastUpdateBy("1");
+                addy.setPostalCode("12345");
+                addy.setPhone("555-867-5309");
+                addy.setCreatedBy("1");
+                addy.setLastUpdate(Instant.now());
+
+                //create customer
+                Customer c = new Customer();
+                c.setCustomerName(n);
+                c.setActive(true);
+                c.setAddress(addy);
+                c.setCreateDate(Instant.now());
+                c.setCreatedBy("1");
+                c.setLastUpdateBy("1");
+                c.setLastUpdate(Instant.now());
+                customerDAO.addCustomer(c);
+            } catch (Exception ex) {
+                Logger.getLogger(CustomerListController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+    }
 }

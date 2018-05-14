@@ -68,7 +68,7 @@ public class AppointmentFormController implements Initializable {
     @FXML
     private TextArea appointmentDescription;
     @FXML
-    private TextField appointmentTitle;
+    private ComboBox<String> appointmentTitle;
     final ObservableList hours = FXCollections.observableArrayList();
 
     private final User currentUser = MainApp.getCurrentUser();
@@ -90,7 +90,8 @@ public class AppointmentFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // stage = (Stage) appointmentDate.getScene().getWindow();
+        appointmentTitle.getItems().setAll("Initial Meeting", "Follow-up Appointment", "Referal Appointment", "Closing Meeting");
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/edu/fxml/CalendarTab.fxml"));
         calendarTabController = loader.getController();
@@ -165,7 +166,6 @@ public class AppointmentFormController implements Initializable {
     public boolean appointmentOutsideWorkingHours(String startTime) {
         boolean saveAnyway = true;
         LocalTime lt = LocalTime.parse(appointmentStartTime.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
-        System.out.println("*************localtime for start of appointment: "+lt);
         if (lt.isBefore(LocalTime.of(9, 0)) || lt.isAfter(LocalTime.of(17, 0))) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are scheduling an appointment for a time outside of working hours. "
                     + "Are you sure you want to save this appointment?");
@@ -185,32 +185,17 @@ public class AppointmentFormController implements Initializable {
         boolean overlaps = false;
         List<Appointment> overlappingAppointments = appointmentDAO.getOverlap(start, end, new Integer(currentUser.getUserId()).toString());
         if (overlappingAppointments.size() > 0) {
-            
-          
-      
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are scheduling an appointment for a time overlaps another appointment. "
                     + "Are you sure you want to save this appointment?");
-
             alert.setTitle("Appointment overlaps another");
             alert.setHeaderText("Appointment overlaps another");
             Optional<ButtonType> act = alert.showAndWait();
             if (act.get() == ButtonType.CANCEL) {
                 overlaps = true;
             }
-
-     
-            
-            
-            
-            
-            
-            
-            
-            
-            
             overlaps = true;
         }
-        System.out.println("appointment overlap: "+overlaps);
+
         return overlaps;
 
     }
@@ -242,7 +227,7 @@ public class AppointmentFormController implements Initializable {
             appt.setLocation(appointmentLocation.getText());
             //appt.setTitle(String.format("apointment with %s with regard to %s",
             //        customer.getCustomerName(), appt.getDescription()));
-            appt.setTitle(appointmentTitle.getText());
+            appt.setTitle(appointmentTitle.getValue());
             appt.setUrl("http://localhost");
             appt.setContact(currentUserId);
 
@@ -272,9 +257,7 @@ public class AppointmentFormController implements Initializable {
         ZonedDateTime localZoned = localDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime utcZoned = localZoned.withZoneSameInstant(ZoneOffset.UTC);
         return utcZoned.toInstant();
-        // return  utcZoned.toInstant().toString().replaceAll("Z", "");
 
-        // return null;
     }
 
     public void populateCustomers() {

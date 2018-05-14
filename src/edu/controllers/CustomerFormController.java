@@ -7,10 +7,13 @@ import edu.dao.CityDAO;
 import edu.dao.CountryDAO;
 import edu.dao.CustomerDAO;
 import edu.model.Address;
+import edu.model.Appointment;
 import edu.model.City;
 import edu.model.Country;
 import edu.model.Customer;
 import java.net.URL;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -140,8 +143,8 @@ public class CustomerFormController implements Initializable {
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(new Date());
             custCountry.setLastUpdateBy(currentUserId);
-           // custCountry = countryDAO.addCountry(custCountry);
-          
+            // custCountry = countryDAO.addCountry(custCountry);
+
             custCity.setCity(city.getText());
             custCity.setCreateDate(new Date());
             custCity.setCreatedBy(currentUserId);
@@ -149,8 +152,8 @@ public class CustomerFormController implements Initializable {
             custCity.setLastUpdateBy(currentUserId);
 
             custCity.setCountry(custCountry);
-         // custCity = cityDAO.addCity(custCity);
-         
+            // custCity = cityDAO.addCity(custCity);
+
             //  cityDAO.editCity(custCity);
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
@@ -161,8 +164,8 @@ public class CustomerFormController implements Initializable {
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
 
-           custAddress.setCity(custCity);
-           // custAddress = addressDAO.addAddress(custAddress);
+            custAddress.setCity(custCity);
+            // custAddress = addressDAO.addAddress(custAddress);
 
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(new Date());
@@ -212,4 +215,5 @@ public class CustomerFormController implements Initializable {
 
     }
 
+   
 }

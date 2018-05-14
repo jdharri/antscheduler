@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+ 
+<Tab text="Reports" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.controllers.ReportsController">
+    <fx:define>
+        <ToggleGroup fx:id="reportGroup"/>
+    </fx:define>      
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <TextArea fx:id="reportTextArea" layoutX="93.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                <RadioButton layoutX="27.0" layoutY="14.0" mnemonicParsing="false"   onAction="#generateMonthlyReport" text="Monthly Appointments" toggleGroup="$reportGroup" />
+                <RadioButton layoutX="272.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateConsultantSchedule" text="Consultant Schedule" toggleGroup="$reportGroup" />
+                <RadioButton layoutX="478.0" layoutY="14.0" mnemonicParsing="false"  onAction="#generateCustom" text="Appointments by Customer" toggleGroup="$reportGroup" />
+            </children>
+        </AnchorPane>
+    </content>
+</Tab>
