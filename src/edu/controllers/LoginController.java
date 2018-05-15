@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +20,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.persistence.NoResultException;
@@ -45,7 +42,7 @@ public class LoginController implements Initializable {
     private Button loginButton;
     Locale currentLocale;
     private final UserDAO userDao = new UserDAO();
-    private String authFailed  = "";
+    private String authFailed = "";
 
     /**
      * This method is where the labels are set based on locale
@@ -55,9 +52,8 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //Locale.setDefault(Locale.FRANCE);
         currentLocale = Locale.getDefault();
-       // currentLocale = Locale.FRANCE;
         //if locale is france
         if (currentLocale.equals(Locale.FRANCE)) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
