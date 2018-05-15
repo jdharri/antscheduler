@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
@@ -82,13 +77,31 @@ public class Reminder implements Serializable {
     @Column(name = "remindercol")
     private String remindercol;
 
+    /**
+     *
+     */
     public Reminder() {
     }
 
+    /**
+     *
+     * @param reminderId
+     */
     public Reminder(Integer reminderId) {
         this.reminderId = reminderId;
     }
 
+    /**
+     *
+     * @param reminderId
+     * @param reminderDate
+     * @param snoozeIncrement
+     * @param snoozeIncrementTypeId
+     * @param appointmentId
+     * @param createdBy
+     * @param createdDate
+     * @param remindercol
+     */
     public Reminder(Integer reminderId, Date reminderDate, int snoozeIncrement,
             int snoozeIncrementTypeId, int appointmentId, String createdBy, Date createdDate,
             String remindercol) {
@@ -102,66 +115,130 @@ public class Reminder implements Serializable {
         this.remindercol = remindercol;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getReminderId() {
         return reminderId;
     }
 
+    /**
+     *
+     * @param reminderId
+     */
     public void setReminderId(Integer reminderId) {
         this.reminderId = reminderId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getReminderDate() {
         return reminderDate;
     }
 
+    /**
+     *
+     * @param reminderDate
+     */
     public void setReminderDate(Date reminderDate) {
         this.reminderDate = reminderDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSnoozeIncrement() {
         return snoozeIncrement;
     }
 
+    /**
+     *
+     * @param snoozeIncrement
+     */
     public void setSnoozeIncrement(int snoozeIncrement) {
         this.snoozeIncrement = snoozeIncrement;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSnoozeIncrementTypeId() {
         return snoozeIncrementTypeId;
     }
 
+    /**
+     *
+     * @param snoozeIncrementTypeId
+     */
     public void setSnoozeIncrementTypeId(int snoozeIncrementTypeId) {
         this.snoozeIncrementTypeId = snoozeIncrementTypeId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAppointmentId() {
         return appointmentId;
     }
 
+    /**
+     *
+     * @param appointmentId
+     */
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     *
+     * @param createdDate
+     */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRemindercol() {
         return remindercol;
     }
 
+    /**
+     *
+     * @param remindercol
+     */
     public void setRemindercol(String remindercol) {
         this.remindercol = remindercol;
     }
@@ -175,13 +252,13 @@ public class Reminder implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Reminder)) {
             return false;
         }
         Reminder other = (Reminder) object;
-        if ((this.reminderId == null && other.reminderId != null) ||
-                (this.reminderId != null && !this.reminderId.equals(other.reminderId))) {
+        if ((this.reminderId == null && other.reminderId != null)
+                || (this.reminderId != null && !this.reminderId.equals(other.reminderId))) {
             return false;
         }
         return true;
@@ -191,5 +268,5 @@ public class Reminder implements Serializable {
     public String toString() {
         return "antscheduler.model.Reminder[ reminderId=" + reminderId + " ]";
     }
-    
+
 }

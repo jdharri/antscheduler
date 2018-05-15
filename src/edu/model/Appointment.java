@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
@@ -11,21 +6,17 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import static javax.persistence.GenerationType.TABLE;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -69,7 +60,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
         @NamedQuery(name = "Appointment.findByLastUpdateBy", query
             = "SELECT a FROM Appointment a WHERE a.lastUpdateBy = :lastUpdateBy")})
-//@SequenceGenerator(name = "seq" , initialValue=1, allocationSize=100)
+
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -126,13 +117,36 @@ public class Appointment implements Serializable {
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
 
+    /**
+     *
+     */
     public Appointment() {
     }
 
+    /**
+     *
+     * @param appointmentId
+     */
     public Appointment(Integer appointmentId) {
         this.appointmentId = appointmentId;
     }
 
+    /**
+     *
+     * @param appointmentId
+     * @param customerId
+     * @param title
+     * @param description
+     * @param location
+     * @param contact
+     * @param url
+     * @param start
+     * @param end
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdateBy
+     */
     public Appointment(Integer appointmentId, int customerId, String title, String description,
             String location, String contact, String url, Instant start, Instant end,
             Instant createDate,
@@ -152,106 +166,210 @@ public class Appointment implements Serializable {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getAppointmentId() {
         return appointmentId;
     }
 
+    /**
+     *
+     * @param appointmentId
+     */
     public void setAppointmentId(Integer appointmentId) {
         this.appointmentId = appointmentId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCustomerId() {
         return customerId;
     }
 
+    /**
+     *
+     * @param customerId
+     */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     *
+     * @param location
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContact() {
         return contact;
     }
 
+    /**
+     *
+     * @param contact
+     */
     public void setContact(String contact) {
         this.contact = contact;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     *
+     * @param url
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getStart() {
         return start;
     }
 
+    /**
+     *
+     * @param start
+     */
     public void setStart(Instant start) {
         this.start = start;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getEnd() {
         return end;
     }
 
+    /**
+     *
+     * @param end
+     */
     public void setEnd(Instant end) {
         this.end = end;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
+    /**
+     *
+     * @param lastUpdateBy
+     */
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
     }
@@ -265,7 +383,7 @@ public class Appointment implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Appointment)) {
             return false;
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
@@ -39,9 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
         @NamedQuery(name = "City.findByCity", query = "SELECT c FROM City c WHERE c.city = :city")
     ,
-//        @NamedQuery(name = "City.findByCountryId", query
-//            = "SELECT c FROM City c WHERE c.countryId = :countryId")
-//    ,
+
         @NamedQuery(name = "City.findByCreateDate", query
             = "SELECT c FROM City c WHERE c.createDate = :createDate")
     ,
@@ -84,13 +77,30 @@ public class City implements Serializable {
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
 
+    /**
+     *
+     */
     public City() {
     }
 
+    /**
+     *
+     * @param cityId
+     */
     public City(Integer cityId) {
         this.cityId = cityId;
     }
 
+    /**
+     *
+     * @param cityId
+     * @param city
+     * @param country
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdateBy
+     */
     public City(Integer cityId, String city, Country country, Instant createDate, String createdBy,
             Instant lastUpdate, String lastUpdateBy) {
         this.cityId = cityId;
@@ -102,58 +112,114 @@ public class City implements Serializable {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCityId() {
         return cityId;
     }
 
+    /**
+     *
+     * @param cityId
+     */
     public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     *
+     * @param city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     *
+     * @return
+     */
     public Country getCountry() {
         return country;
     }
 
+    /**
+     *
+     * @param country
+     */
     public void setCountry(Country country) {
         this.country = country;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
+    /**
+     *
+     * @param lastUpdateBy
+     */
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
     }
@@ -167,7 +233,7 @@ public class City implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof City)) {
             return false;
         }

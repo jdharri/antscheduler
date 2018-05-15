@@ -75,7 +75,7 @@ public class AppointmentFormController implements Initializable {
     Stage stage;
     @FXML
     private AnchorPane appointmentForm;
-//    @FXML
+
     private CalendarTabController calendarTabController;
     @FXML
     private AnchorPane calendarTab;
@@ -163,6 +163,12 @@ public class AppointmentFormController implements Initializable {
         appointmentForm.setVisible(false);
     }
 
+    /**
+     * Determines if appointment is being schedules for outside of working hours
+     *
+     * @param startTime
+     * @return
+     */
     public boolean appointmentOutsideWorkingHours(String startTime) {
         boolean saveAnyway = true;
         LocalTime lt = LocalTime.parse(appointmentStartTime.getValue(), DateTimeFormatter.ofPattern("h:mm a"));
@@ -181,6 +187,14 @@ public class AppointmentFormController implements Initializable {
         return saveAnyway;
     }
 
+    /**
+     * Determines if the appointment attempting to be scheduled overlaps with
+     * another appointment for the user.
+     *
+     * @param start
+     * @param end
+     * @return
+     */
     public boolean appointmentOverlap(Instant start, Instant end) {
         boolean overlaps = false;
         List<Appointment> overlappingAppointments = appointmentDAO.getOverlap(start, end, new Integer(currentUser.getUserId()).toString());
@@ -202,6 +216,8 @@ public class AppointmentFormController implements Initializable {
 
     /**
      * Saves an appointment from data entered into the appointment form
+     *
+     * @throws java.text.ParseException
      */
     @FXML
     public void saveAppointment() throws ParseException {
@@ -260,6 +276,9 @@ public class AppointmentFormController implements Initializable {
 
     }
 
+    /**
+     * Populates the customer list
+     */
     public void populateCustomers() {
 
         List<Customer> customerListResults = customerDAO.getAllCustomers();
@@ -268,26 +287,12 @@ public class AppointmentFormController implements Initializable {
 
     }
 
-    @FXML
-    public void validateCustomerSelection() {
+    
 
-    }
-
-    @FXML
-    public void validateDateSelection() {
-
-    }
-
-    @FXML
-    public void validateStartTimeSelection() {
-
-    }
-
-    @FXML
-    public void validateEndTimeSelection() {
-
-    }
-
+    /**
+     *
+     * @param con
+     */
     public void setCalendarTabController(CalendarTabController con) {
         this.calendarTabController = con;
     }

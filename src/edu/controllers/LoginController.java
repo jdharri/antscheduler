@@ -3,7 +3,6 @@ package edu.controllers;
 import edu.MainApp;
 import edu.dao.UserDAO;
 import edu.model.User;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -22,8 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  *
@@ -70,6 +67,11 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     * @throws Exception
+     */
     public void Login(ActionEvent event) throws Exception {
 
         FileWriter fw = new FileWriter("audit.txt", true);
@@ -84,6 +86,7 @@ public class LoginController implements Initializable {
                 Scene mainViewScene = new Scene(mainViewParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(mainViewScene);
+               
                 window.show();
             } else {
                 pw.printf("Failed authentication attempt for username: %s, at: %s\n", loginUsername.getText(), Instant.now());

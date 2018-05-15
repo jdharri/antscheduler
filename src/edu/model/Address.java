@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.model;
 
 import java.io.Serializable;
@@ -103,13 +99,33 @@ public class Address implements Serializable {
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
 
+    /**
+     *
+     */
     public Address() {
     }
 
+    /**
+     *
+     * @param addressId
+     */
     public Address(Integer addressId) {
         this.addressId = addressId;
     }
 
+    /**
+     *
+     * @param addressId
+     * @param address
+     * @param address2
+     * @param city
+     * @param postalCode
+     * @param phone
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdateBy
+     */
     public Address(Integer addressId, String address, String address2, City city, String postalCode,
             String phone, Instant createDate, String createdBy, Instant lastUpdate, String lastUpdateBy) {
         this.addressId = addressId;
@@ -124,82 +140,162 @@ public class Address implements Serializable {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getAddressId() {
         return addressId;
     }
 
+    /**
+     *
+     * @param addressId
+     */
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress2() {
         return address2;
     }
 
+    /**
+     *
+     * @param address2
+     */
     public void setAddress2(String address2) {
         this.address2 = address2;
     }
 
+    /**
+     *
+     * @return
+     */
     public City getCity() {
         return city;
     }
 
+    /**
+     *
+     * @param city
+     */
     public void setCity(City city) {
         this.city = city;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPostalCode() {
         return postalCode;
     }
 
+    /**
+     *
+     * @param postalCode
+     */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     *
+     * @param phone
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
+    /**
+     *
+     * @param lastUpdateBy
+     */
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
     }

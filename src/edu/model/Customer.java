@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,9 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Customer.findByCustomerName", query
             = "SELECT c FROM Customer c WHERE c.customerName = :customerName")
     ,
-//        @NamedQuery(name = "Customer.findByAddressId", query
-//            = "SELECT c FROM Customer c WHERE c.address.addressId = :addressId")
-//    ,
         @NamedQuery(name = "Customer.findByActive", query
             = "SELECT c FROM Customer c WHERE c.active = :active")
     ,
@@ -97,13 +86,31 @@ public class Customer implements Serializable {
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
 
+    /**
+     *
+     */
     public Customer() {
     }
 
+    /**
+     *
+     * @param customerId
+     */
     public Customer(Integer customerId) {
         this.customerId = customerId;
     }
 
+    /**
+     *
+     * @param customerId
+     * @param customerName
+     * @param address
+     * @param active
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdateBy
+     */
     public Customer(Integer customerId, String customerName, Address address, boolean active,
             Instant createDate, String createdBy, Instant lastUpdate, String lastUpdateBy) {
         this.customerId = customerId;
@@ -116,66 +123,130 @@ public class Customer implements Serializable {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCustomerId() {
         return customerId;
     }
 
+    /**
+     *
+     * @param customerId
+     */
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCustomerName() {
         return customerName;
     }
 
+    /**
+     *
+     * @param customerName
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Address getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(Address address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getActive() {
         return active;
     }
 
+    /**
+     *
+     * @param active
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
+    /**
+     *
+     * @param lastUpdateBy
+     */
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
     }
@@ -189,7 +260,7 @@ public class Customer implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Customer)) {
             return false;
         }

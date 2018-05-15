@@ -9,10 +9,11 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 /**
- * Converts the Instant dateTime to a timestamp for persistence and converts from the timestamp back
- * to an instant, all while maintaining the same UTC offset
+ * Converts the Instant dateTime to a timestamp for persistence and converts
+ * from the timestamp back to an instant, all while maintaining the same UTC
+ * offset
  *
- * @author Joel Harris 
+ * @author Joel Harris
  */
 @Converter
 public class InstantAttributeConverter implements AttributeConverter<Instant, Timestamp> {

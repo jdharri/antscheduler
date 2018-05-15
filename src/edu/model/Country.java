@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.model;
 
 import java.io.Serializable;
@@ -75,13 +71,29 @@ public class Country implements Serializable {
     @Column(name = "lastUpdateBy")
     private String lastUpdateBy;
 
+    /**
+     *
+     */
     public Country() {
     }
 
+    /**
+     *
+     * @param countryId
+     */
     public Country(Integer countryId) {
         this.countryId = countryId;
     }
 
+    /**
+     *
+     * @param countryId
+     * @param country
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdateBy
+     */
     public Country(Integer countryId, String country, Instant createDate, String createdBy,
             Instant lastUpdate, String lastUpdateBy) {
         this.countryId = countryId;
@@ -92,50 +104,98 @@ public class Country implements Serializable {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCountryId() {
         return countryId;
     }
 
+    /**
+     *
+     * @param countryId
+     */
     public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     *
+     * @param country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /**
+     *
+     * @param createdBy
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Instant getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdateBy() {
         return lastUpdateBy;
     }
 
+    /**
+     *
+     * @param lastUpdateBy
+     */
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
     }
@@ -149,7 +209,7 @@ public class Country implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+      
         if (!(object instanceof Country)) {
             return false;
         }

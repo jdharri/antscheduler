@@ -59,6 +59,8 @@ public class CustomerListController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,6 +89,9 @@ public class CustomerListController implements Initializable {
 
     }
 
+    /**
+     *
+     */
     public void queryForAppointments() {
         Instant now = Instant.now();
         Instant fifteenMinutesFromNow = now.plus(15, ChronoUnit.MINUTES);
@@ -98,10 +103,17 @@ public class CustomerListController implements Initializable {
         createAppointmentAlerts(appointments);
     }
 
+    /**
+     *
+     */
     public void addNewCustomer() {
         customerForm.setVisible(true);
     }
 
+    /**
+     *
+     * @param appointments
+     */
     public void createAppointmentAlerts(final List<Appointment> appointments) {
 
         for (Appointment appt : appointments) {
@@ -120,6 +132,10 @@ public class CustomerListController implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param customer
+     */
     public void addCustomer(Customer customer) {
         customers.add(customer);
     }
@@ -144,6 +160,9 @@ public class CustomerListController implements Initializable {
         this.populateUserList();
     }
 
+    /**
+     *
+     */
     public void seedAppointments() {
         for (int i = 1; i < 11; i++) {
             try {
@@ -171,6 +190,9 @@ public class CustomerListController implements Initializable {
 
     }
 
+    /**
+     *
+     */
     public void seedCustomers() {
 
         List<String> names = Arrays.asList("Ella Newton", "Jo Bowman",

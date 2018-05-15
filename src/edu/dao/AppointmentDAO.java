@@ -74,4 +74,12 @@ public class AppointmentDAO {
         return q.getResultList();
     }
 
+    public List<Appointment> getAppointmentsByCustomerId(final int customerId) {
+        Query q = con.getEntityManager().createQuery(
+                "FROM Appointment AS a WHERE a.customerId = :customerId");
+        q.setParameter("customerId", customerId);
+
+        return q.getResultList();
+    }
+
 }

@@ -7,13 +7,11 @@ import edu.dao.CityDAO;
 import edu.dao.CountryDAO;
 import edu.dao.CustomerDAO;
 import edu.model.Address;
-import edu.model.Appointment;
 import edu.model.City;
 import edu.model.Country;
 import edu.model.Customer;
 import java.net.URL;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -139,16 +137,16 @@ public class CustomerFormController implements Initializable {
         try {
 
             custCountry.setCountry(country.getText());
-            custCountry.setCreateDate(new Date());
+            custCountry.setCreateDate(Instant.now());
             custCountry.setCreatedBy(currentUserId);
-            custCountry.setLastUpdate(new Date());
+            custCountry.setLastUpdate(Instant.now());
             custCountry.setLastUpdateBy(currentUserId);
             // custCountry = countryDAO.addCountry(custCountry);
 
             custCity.setCity(city.getText());
-            custCity.setCreateDate(new Date());
+            custCity.setCreateDate(Instant.now());
             custCity.setCreatedBy(currentUserId);
-            custCity.setLastUpdate(new Date());
+            custCity.setLastUpdate(Instant.now());
             custCity.setLastUpdateBy(currentUserId);
 
             custCity.setCountry(custCountry);
@@ -157,10 +155,10 @@ public class CustomerFormController implements Initializable {
             //  cityDAO.editCity(custCity);
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
-            custAddress.setCreateDate(new Date());
+            custAddress.setCreateDate(Instant.now());
             custAddress.setCreatedBy(currentUserId);
             custAddress.setLastUpdateBy(currentUserId);
-            custAddress.setLastUpdate(new Date());
+            custAddress.setLastUpdate(Instant.now());
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
 
@@ -168,9 +166,9 @@ public class CustomerFormController implements Initializable {
             // custAddress = addressDAO.addAddress(custAddress);
 
             customer.setCustomerName(customerName.getText());
-            customer.setCreateDate(new Date());
+            customer.setCreateDate(Instant.now());
             customer.setActive(true);
-            customer.setLastUpdate(new Date());
+            customer.setLastUpdate(Instant.now());
             customer.setCreatedBy(currentUserId);
             customer.setLastUpdateBy(currentUserId);
             // customer = customerDAO.addCustomer(customer);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
@@ -41,30 +36,58 @@ public class Incrementtypes implements Serializable {
     @Column(name = "incrementTypeDescription")
     private String incrementTypeDescription;
 
+    /**
+     *
+     */
     public Incrementtypes() {
     }
 
+    /**
+     *
+     * @param incrementTypeId
+     */
     public Incrementtypes(Integer incrementTypeId) {
         this.incrementTypeId = incrementTypeId;
     }
 
+    /**
+     *
+     * @param incrementTypeId
+     * @param incrementTypeDescription
+     */
     public Incrementtypes(Integer incrementTypeId, String incrementTypeDescription) {
         this.incrementTypeId = incrementTypeId;
         this.incrementTypeDescription = incrementTypeDescription;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIncrementTypeId() {
         return incrementTypeId;
     }
 
+    /**
+     *
+     * @param incrementTypeId
+     */
     public void setIncrementTypeId(Integer incrementTypeId) {
         this.incrementTypeId = incrementTypeId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIncrementTypeDescription() {
         return incrementTypeDescription;
     }
 
+    /**
+     *
+     * @param incrementTypeDescription
+     */
     public void setIncrementTypeDescription(String incrementTypeDescription) {
         this.incrementTypeDescription = incrementTypeDescription;
     }
@@ -78,13 +101,13 @@ public class Incrementtypes implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Incrementtypes)) {
             return false;
         }
         Incrementtypes other = (Incrementtypes) object;
-        if ((this.incrementTypeId == null && other.incrementTypeId != null) ||
-                (this.incrementTypeId != null && !this.incrementTypeId.equals(other.incrementTypeId))) {
+        if ((this.incrementTypeId == null && other.incrementTypeId != null)
+                || (this.incrementTypeId != null && !this.incrementTypeId.equals(other.incrementTypeId))) {
             return false;
         }
         return true;
@@ -94,5 +117,5 @@ public class Incrementtypes implements Serializable {
     public String toString() {
         return "antscheduler.model.Incrementtypes[ incrementTypeId=" + incrementTypeId + " ]";
     }
-    
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.model;
 
 import java.io.Serializable;
@@ -82,13 +77,31 @@ public class User implements Serializable {
     @Column(name = "lastUpdatedBy")
     private String lastUpdatedBy;
 
+    /**
+     *
+     */
     public User() {
     }
 
+    /**
+     *
+     * @param userId
+     */
     public User(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     *
+     * @param userId
+     * @param userName
+     * @param password
+     * @param active
+     * @param createBy
+     * @param createDate
+     * @param lastUpdate
+     * @param lastUpdatedBy
+     */
     public User(Integer userId, String userName, String password, short active, String createBy,
             Date createDate, Date lastUpdate, String lastUpdatedBy) {
         this.userId = userId;
@@ -101,66 +114,130 @@ public class User implements Serializable {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getUserId() {
         return userId;
     }
 
+    /**
+     *
+     * @param userId
+     */
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getActive() {
         return active;
     }
 
+    /**
+     *
+     * @param active
+     */
     public void setActive(short active) {
         this.active = active;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreateBy() {
         return createBy;
     }
 
+    /**
+     *
+     * @param createBy
+     */
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @param createDate
+     */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getLastUpdate() {
         return lastUpdate;
     }
 
+    /**
+     *
+     * @param lastUpdate
+     */
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
+    /**
+     *
+     * @param lastUpdatedBy
+     */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
@@ -174,13 +251,12 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }
         User other = (User) object;
-        if ((this.userId == null && other.userId != null) ||
-                (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.userId == null && other.userId != null)
+                || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -190,5 +266,5 @@ public class User implements Serializable {
     public String toString() {
         return "antscheduler.model.User[ userId=" + userId + " ]";
     }
-    
+
 }
