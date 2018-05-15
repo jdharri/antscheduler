@@ -14,10 +14,10 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <DatePicker fx:id="appointmentDate" layoutX="225.0" layoutY="91.0" onAction="#validateDateSelection" promptText="Choose Date" />
-        <ComboBox fx:id="appointmentCustomer" layoutX="225.0" layoutY="59.0" onAction="#validateCustomerSelection" prefWidth="150.0" promptText="With who?" />
-        <ComboBox fx:id="appointmentStartTime" layoutX="225.0" layoutY="126.0" onAction="#validateStartTimeSelection" prefWidth="150.0" promptText="start time" />
-        <ComboBox fx:id="appointmentEndTime" layoutX="225.0" layoutY="167.0" onAction="#validateEndTimeSelection" prefWidth="150.0" promptText="end time" />
+        <DatePicker fx:id="appointmentDate" layoutX="225.0" layoutY="91.0"  promptText="Choose Date" />
+        <ComboBox fx:id="appointmentCustomer" layoutX="225.0" layoutY="59.0"  prefWidth="150.0" promptText="With who?" />
+        <ComboBox fx:id="appointmentStartTime" layoutX="225.0" layoutY="126.0" prefWidth="150.0" promptText="start time" />
+        <ComboBox fx:id="appointmentEndTime" layoutX="225.0" layoutY="167.0"  prefWidth="150.0" promptText="end time" />
         <Label layoutX="176.0" layoutY="130.0" text="From:" />
         <Label layoutX="183.0" layoutY="171.0" text="To:" />
         <Label layoutX="181.0" layoutY="63.0" text="With:" />

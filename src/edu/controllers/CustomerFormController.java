@@ -12,7 +12,6 @@ import edu.model.Country;
 import edu.model.Customer;
 import java.net.URL;
 import java.time.Instant;
-import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,7 +125,9 @@ public class CustomerFormController implements Initializable {
         Address custAddress = null;
         if (this.customerId != null) {
             customer = customerDAO.getCustomerById(customerId);
-
+            custCountry = customer.getAddress().getCity().getCountry();
+            custCity = customer.getAddress().getCity();
+            custAddress = customer.getAddress();
         } else {
             custCountry = new Country();
 
@@ -141,18 +142,12 @@ public class CustomerFormController implements Initializable {
             custCountry.setCreatedBy(currentUserId);
             custCountry.setLastUpdate(Instant.now());
             custCountry.setLastUpdateBy(currentUserId);
-            // custCountry = countryDAO.addCountry(custCountry);
-
             custCity.setCity(city.getText());
             custCity.setCreateDate(Instant.now());
             custCity.setCreatedBy(currentUserId);
             custCity.setLastUpdate(Instant.now());
             custCity.setLastUpdateBy(currentUserId);
-
             custCity.setCountry(custCountry);
-            // custCity = cityDAO.addCity(custCity);
-
-            //  cityDAO.editCity(custCity);
             custAddress.setAddress(address.getText());
             custAddress.setAddress2(address2.getText());
             custAddress.setCreateDate(Instant.now());
@@ -161,20 +156,20 @@ public class CustomerFormController implements Initializable {
             custAddress.setLastUpdate(Instant.now());
             custAddress.setPhone(phone.getText());
             custAddress.setPostalCode(postalCode.getText());
-
             custAddress.setCity(custCity);
-            // custAddress = addressDAO.addAddress(custAddress);
-
             customer.setCustomerName(customerName.getText());
             customer.setCreateDate(Instant.now());
             customer.setActive(true);
             customer.setLastUpdate(Instant.now());
             customer.setCreatedBy(currentUserId);
             customer.setLastUpdateBy(currentUserId);
-            // customer = customerDAO.addCustomer(customer);
+
             customer.setAddress(custAddress);
-            System.out.println("88888888888888888888");
-            customerDAO.addCustomer(customer);
+            if (customer.getCustomerId() != null) {
+                customerDAO.editCustomer(customer);
+            } else {
+                customerDAO.addCustomer(customer);
+            }
 
         } catch (Exception ex) {
             logger.log(Level.WARNING, "Problem saving customer{0}", ex);
@@ -182,6 +177,7 @@ public class CustomerFormController implements Initializable {
 
         this.cancel.fire();
         customerListController.refresh();
+        customerForm.setVisible(false);
 
     }
 
@@ -213,5 +209,4 @@ public class CustomerFormController implements Initializable {
 
     }
 
-   
 }

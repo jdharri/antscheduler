@@ -17,7 +17,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -69,10 +68,7 @@ public class CustomerListController implements Initializable {
         customerForm.setVisible(false);
 
         this.populateUserList();
-        //  this.seedAppointments();
-//        seedCustomers();
-//        Alert alert = new Alert(AlertType.INFORMATION, "This is an alert");
-//        alert.show();
+
         this.queryForAppointments();
         customerList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Customer>() {

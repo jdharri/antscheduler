@@ -9,7 +9,6 @@ import edu.model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,14 +18,12 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -197,17 +194,15 @@ public class AppointmentFormController implements Initializable {
      */
     public boolean appointmentOverlap(Instant start, Instant end) {
         boolean overlaps = false;
-        List<Appointment> overlappingAppointments = appointmentDAO.getOverlap(start, end, new Integer(currentUser.getUserId()).toString());
+        List<Appointment> overlappingAppointments = appointmentDAO.getOverlap(start, end, currentUser.getUserId().toString());
         if (overlappingAppointments.size() > 0) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You are scheduling an appointment for a time overlaps another appointment. "
                     + "Are you sure you want to save this appointment?");
             alert.setTitle("Appointment overlaps another");
             alert.setHeaderText("Appointment overlaps another");
             Optional<ButtonType> act = alert.showAndWait();
-            if (act.get() == ButtonType.CANCEL) {
-                overlaps = true;
-            }
-            overlaps = true;
+            overlaps = act.get() == ButtonType.CANCEL;
+
         }
 
         return overlaps;
@@ -226,7 +221,7 @@ public class AppointmentFormController implements Initializable {
         Instant end = formatDateTime(appointmentDate.getValue(), appointmentEndTime.
                 getValue());
         if (appointmentOutsideWorkingHours(appointmentStartTime.getValue()) && !(appointmentOverlap(start, end))) {
-            final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
+            final String currentUserId = MainApp.getCurrentUser().getUserId().toString();
 
             Customer customer = appointmentCustomer.getValue();
             Appointment appt = new Appointment();
@@ -241,8 +236,7 @@ public class AppointmentFormController implements Initializable {
 
             appt.setDescription(appointmentDescription.getText());
             appt.setLocation(appointmentLocation.getText());
-            //appt.setTitle(String.format("apointment with %s with regard to %s",
-            //        customer.getCustomerName(), appt.getDescription()));
+         
             appt.setTitle(appointmentTitle.getValue());
             appt.setUrl("http://localhost");
             appt.setContact(currentUserId);
@@ -286,8 +280,6 @@ public class AppointmentFormController implements Initializable {
         appointmentCustomer.getItems().addAll(customerListResults);
 
     }
-
-    
 
     /**
      *

@@ -9,13 +9,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="348.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.controllers.LoginController">
    <children>
-      <Label fx:id="loginLable" alignment="CENTER" layoutX="77.0" layoutY="80.0" prefHeight="27.0" prefWidth="407.0" text="Login">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <TextField fx:id="loginUsername" layoutX="208.0" layoutY="152.0" promptText="Username" />
       <PasswordField fx:id="loginPassword" layoutX="208.0" layoutY="224.0" promptText="Password" />
-      <Button fx:id="loginButton" layoutX="257.0" layoutY="291.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button fx:id="loginButton" layoutX="257.0" layoutY="291.0" mnemonicParsing="false" onAction="#Login" onKeyPressed="#Login" text="Login" />
+      <Text fx:id="loginLable" layoutX="73.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="login" textAlignment="CENTER" wrappingWidth="418.13671875">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
