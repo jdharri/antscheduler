@@ -2,6 +2,9 @@ C 195 task 1
 Joel Harris
 Student ID: 000381746 
 
+Audit log:
+the audit file "audit.txt" is output to the root directory of the project.
+
 The primary username and password for the application:
 username: test
 password: test
