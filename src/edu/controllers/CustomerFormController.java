@@ -10,6 +10,7 @@ import edu.model.Address;
 import edu.model.City;
 import edu.model.Country;
 import edu.model.Customer;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -116,7 +118,7 @@ public class CustomerFormController implements Initializable {
      * @param event
      */
     @FXML
-    public void SaveCustomer(ActionEvent event) {
+    public void SaveCustomer(ActionEvent event) throws IOException {
         final String currentUserId = new Integer(MainApp.getCurrentUser().getUserId()).toString();
 
         Customer customer;
@@ -177,7 +179,11 @@ public class CustomerFormController implements Initializable {
 
         this.cancel.fire();
         customerListController.refresh();
-        customerForm.setVisible(false);
+        FXMLLoader loader;
+
+        loader = new FXMLLoader(getClass().getResource("/edu/fxml/AppointmentForm.fxml"));
+        AnchorPane appointmentPane = loader.load();
+        appointmentPane.setVisible(false);
 
     }
 

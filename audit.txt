@@ -88,3 +88,8 @@ User: test, logged into the system at: 2018-05-15T03:05:41.895Z
 User: test, logged into the system at: 2018-05-15T03:10:20.597Z
 User: test, logged into the system at: 2018-05-15T03:13:04.513Z
 User: test, logged into the system at: 2018-05-15T03:13:35.946Z
+User: test, logged into the system at: 2018-05-16T03:06:36.165Z
+User: test, logged into the system at: 2018-05-16T03:08:22.404Z
+User: test, logged into the system at: 2018-05-16T03:24:23.144Z
+User: test, logged into the system at: 2018-05-16T03:28:03.242Z
+User: test, logged into the system at: 2018-05-16T03:29:46.055Z

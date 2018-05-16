@@ -59,7 +59,7 @@ public class CalendarTabController implements Initializable {
     public void initialize(final URL url, final ResourceBundle rb) {
         try {
              currentUser = MainApp.getCurrentUser().getUserId();
-           // currentUser = 1;
+          
             FXMLLoader loader;
 
             loader = new FXMLLoader(getClass().getResource("/edu/fxml/AppointmentForm.fxml"));
@@ -87,6 +87,8 @@ public class CalendarTabController implements Initializable {
 
             calendarTab.getChildren().add(appointmentPane);
         }
+       appointmentFormController.populateCustomers();
+       
         appointmentPane.setVisible(true);
     }
 
